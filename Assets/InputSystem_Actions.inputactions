@@ -50,6 +50,34 @@
             ]
         },
         {
+            "name": "Camera",
+            "id": "8042e139-ae64-425d-a63a-41a2119c2214",
+            "actions": [
+                {
+                    "name": "Camera Scroll",
+                    "type": "Value",
+                    "id": "08bdeda3-9cda-419d-815b-32804ff912db",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "951e50ae-07af-4ca8-bde3-b90d5128141c",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "UI",
             "id": "272f6d14-89ba-496f-b7ff-215263d3219f",
             "actions": [

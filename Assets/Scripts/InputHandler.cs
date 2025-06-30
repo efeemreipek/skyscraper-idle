@@ -6,17 +6,21 @@ public class InputHandler : Singleton<InputHandler>
     [SerializeField] private InputActionAsset inputActionAsset;
 
     private InputActionMap actionMapGame;
+    private InputActionMap actionMapCamera;
 
     private InputAction actionMousePosition;
     private InputAction actionMouseLeftClick;
+    private InputAction actionCameraScroll;
 
     private Vector2 mousePosition;
     private bool mouseLeftClickPressed, mouseLeftClickHold, mouseLeftClickReleased;
+    private float cameraScroll;
 
     public Vector2 MousePosition => mousePosition;
     public bool MouseLeftClickPressed => mouseLeftClickPressed;
     public bool MouseLeftClickHold => mouseLeftClickHold;
     public bool MouseLeftClickReleased => mouseLeftClickReleased;
+    public float CameraScroll => cameraScroll;
 
     private void OnEnable()
     {
@@ -36,19 +40,24 @@ public class InputHandler : Singleton<InputHandler>
     private void InitializeActionMaps()
     {
         actionMapGame = inputActionAsset.FindActionMap("Game");
+        actionMapCamera = inputActionAsset.FindActionMap("Camera");
     }
     private void EnableActionMaps()
     {
         actionMapGame.Enable();
+        actionMapCamera.Enable();
     }
     private void DisableActionMaps()
     {
         actionMapGame.Disable();
+        actionMapCamera.Disable();
     }
     private void InitializeInputActions()
     {
-        actionMousePosition = InputSystem.actions.FindAction("Mouse Position");
-        actionMouseLeftClick = InputSystem.actions.FindAction("Mouse Left Click");
+        actionMousePosition = actionMapGame.FindAction("Mouse Position");
+        actionMouseLeftClick = actionMapGame.FindAction("Mouse Left Click");
+
+        actionCameraScroll = actionMapCamera.FindAction("Camera Scroll");
     }
     private void SubscribeToInputEvents()
     {
@@ -57,6 +66,9 @@ public class InputHandler : Singleton<InputHandler>
 
         actionMouseLeftClick.performed += MouseLeftClick_Performed;
         actionMouseLeftClick.canceled += MouseLeftClick_Canceled;
+
+        actionCameraScroll.performed += CameraScroll_Performed;
+        actionCameraScroll.canceled += CameraScroll_Canceled;
     }
     private void UnsubscribeFromInputEvents()
     {
@@ -65,6 +77,9 @@ public class InputHandler : Singleton<InputHandler>
 
         actionMouseLeftClick.performed -= MouseLeftClick_Performed;
         actionMouseLeftClick.canceled -= MouseLeftClick_Canceled;
+
+        actionCameraScroll.performed -= CameraScroll_Performed;
+        actionCameraScroll.canceled -= CameraScroll_Canceled;
     }
 
     private void LateUpdate()
@@ -85,10 +100,6 @@ public class InputHandler : Singleton<InputHandler>
         mouseLeftClickHold = false;
         mouseLeftClickReleased = true;
     }
-
-    public void ResetInputStates()
-    {
-        mouseLeftClickPressed = false;
-        mouseLeftClickHold = false;
-    }
+    private void CameraScroll_Performed(InputAction.CallbackContext obj) => cameraScroll = obj.ReadValue<float>();
+    private void CameraScroll_Canceled(InputAction.CallbackContext obj) => cameraScroll = 0f;
 }
