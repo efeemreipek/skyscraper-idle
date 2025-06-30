@@ -12,7 +12,7 @@ public class BuyFloorsPanelController : MonoBehaviour
         {
             GameObject buttonGO = Instantiate(buttonPrefab, container);
             BuyFloorButtonUI ui = buttonGO.GetComponent<BuyFloorButtonUI>();
-            ui.InitializeButton(floorData.Name);
+            ui.InitializeButton(floorData);
         }
     }
 }

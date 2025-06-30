@@ -1,12 +1,24 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyFloorButtonUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text nameText;
 
-    public void InitializeButton(string name)
+    private FloorData data;
+    private Button button;
+
+    private void Awake()
     {
-        nameText.text = name;
+        button = GetComponent<Button>();    
+    }
+
+    public void InitializeButton(FloorData data)
+    {
+        this.data = data;
+        nameText.text = data.Name;
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => Skyscraper.Instance.AddNewFloor(data));
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Floor : MonoBehaviour
@@ -23,7 +24,6 @@ public class Floor : MonoBehaviour
     private void Awake()
     {
         ui = GetComponent<FloorUI>();
-        ui.SetNameText(data.Name);
     }
     private void Update()
     {
@@ -56,5 +56,12 @@ public class Floor : MonoBehaviour
                 moneyGenerationPerSecond = Mathf.CeilToInt(moneyGenerationPerSecond * newLevelMoneyMultiplier);
             }
         }
+    }
+
+    public void InitializeFloor(FloorData data)
+    {
+        this.data = data;
+        currentLevelXP = data.BaseXPCapAmount;
+        ui.SetNameText(data.Name);
     }
 }

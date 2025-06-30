@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Newspaper Stand
   m_EditorClassIdentifier: 
   Name: Newspaper Stand
+  BaseXPCapAmount: 16

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Bakery
   m_EditorClassIdentifier: 
   Name: Bakery
+  BaseXPCapAmount: 30

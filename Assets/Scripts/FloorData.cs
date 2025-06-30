@@ -4,4 +4,5 @@ using UnityEngine;
 public class FloorData : ScriptableObject
 {
     public string Name;
+    public int BaseXPCapAmount;
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Cafe
   m_EditorClassIdentifier: 
   Name: Cafe
+  BaseXPCapAmount: 20
