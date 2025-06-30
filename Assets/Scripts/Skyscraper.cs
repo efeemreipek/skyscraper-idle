@@ -5,6 +5,7 @@ using UnityEngine;
 public class Skyscraper : Singleton<Skyscraper>
 {
     [SerializeField] private GameObject floorPrefab;
+    [SerializeField] private float floorHeight = 4f;
 
     public List<Floor> FloorList = new List<Floor>();
 
@@ -23,6 +24,7 @@ public class Skyscraper : Singleton<Skyscraper>
     public void AddNewFloor(FloorData data)
     {
         GameObject floorGO = Instantiate(floorPrefab, transform);
+        floorGO.transform.localPosition = new Vector3(0f, FloorList.Count * floorHeight, 0f);
         Floor floor = floorGO.GetComponent<Floor>();
         floor.InitializeFloor(data);
         FloorList.Add(floor);

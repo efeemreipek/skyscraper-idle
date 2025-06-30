@@ -2626,6 +2626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorPrefab: {fileID: 5690029827121401576, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
+  floorHeight: 4
   FloorList: []
 --- !u!4 &1787835592
 Transform:
