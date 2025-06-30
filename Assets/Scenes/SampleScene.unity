@@ -1990,6 +1990,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1581331467315661096, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 88abb59374d594a44865b0f3daaaa18c, type: 2}
+    - target: {fileID: -1581331467315661096, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
       propertyPath: currentLevelXP
       value: 20
       objectReference: {fileID: 0}

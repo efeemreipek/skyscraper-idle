@@ -20,10 +20,9 @@ public class Clicker : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, 100f, floorLayer))
             {
-                Debug.DrawLine(ray.origin, hit.point);
-                Debug.Log("Clicked on " + hit.collider.gameObject.name);
-
                 Floor floor = hit.collider.GetComponent<Floor>();
+
+                Debug.Log("Clicked on " + floor.Data.Name);
                 floor.AddXP(floor.XPGainOnClick);
             }
         }

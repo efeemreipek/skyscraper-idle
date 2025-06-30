@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
+    [SerializeField] private FloorData data;
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private int currentLevelXP;
     [SerializeField] private int currentXP;
@@ -12,6 +13,7 @@ public class Floor : MonoBehaviour
 
     private float timer = 0f;
 
+    public FloorData Data => data;
     public int XPGainOnClick => xPGainOnClick;
 
     private void Update()

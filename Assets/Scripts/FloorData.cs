@@ -1,0 +1,7 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New FloorData", menuName = "Scriptable Objects/FloorData")]
+public class FloorData : ScriptableObject
+{
+    public string Name;
+}

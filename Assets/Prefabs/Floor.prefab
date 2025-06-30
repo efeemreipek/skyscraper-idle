@@ -121,3 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d713e512cf017499e53fb82019ac01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  currentLevel: 1
+  currentLevelXP: 0
+  currentXP: 0
+  newLevelXPMultiplier: 1.1
+  xPGainOnClick: 1
+  moneyGenerationPerSecond: 0
+  newLevelMoneyMultiplier: 1.1
