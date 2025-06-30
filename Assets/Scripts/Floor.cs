@@ -15,6 +15,9 @@ public class Floor : MonoBehaviour
     private FloorUI ui;
 
     public FloorData Data => data;
+    public int CurrentLevel => currentLevel;
+    public int MoneyGenerationPerSecond => moneyGenerationPerSecond;
+    public float CurrentLevelProgress => (float)currentXP / currentLevelXP;
     public int XPGainOnClick => xPGainOnClick;
 
     private void Awake()
