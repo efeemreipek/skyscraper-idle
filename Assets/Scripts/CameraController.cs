@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
     }
     private void ClampPosition()
     {
-        if(transform.position.y < 0f)
+        if(transform.position.y < lowestClamp)
         {
             transform.position = new Vector3(transform.position.x, lowestClamp, transform.position.z);
         }

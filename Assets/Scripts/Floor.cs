@@ -12,10 +12,16 @@ public class Floor : MonoBehaviour
     [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
 
     private float timer = 0f;
+    private FloorUI ui;
 
     public FloorData Data => data;
     public int XPGainOnClick => xPGainOnClick;
 
+    private void Awake()
+    {
+        ui = GetComponent<FloorUI>();
+        ui.SetNameText(data.Name);
+    }
     private void Update()
     {
         if(currentLevel == 1) return;

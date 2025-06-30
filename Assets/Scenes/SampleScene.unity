@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSensitivity: 40
-  lowestClamp: 0
+  lowestClamp: 1
 --- !u!1 &1428040169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +2003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4553795339511728146, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4553795339511728146, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2044,7 +2044,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 585658116926183859, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
