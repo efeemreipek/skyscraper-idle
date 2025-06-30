@@ -22,6 +22,9 @@ public class Clicker : MonoBehaviour
             {
                 Debug.DrawLine(ray.origin, hit.point);
                 Debug.Log("Clicked on " + hit.collider.gameObject.name);
+
+                Floor floor = hit.collider.GetComponent<Floor>();
+                floor.AddXP(floor.XPGainOnClick);
             }
         }
     }
