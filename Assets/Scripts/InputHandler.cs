@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputHandler : Singleton<InputHandler>
@@ -16,6 +17,7 @@ public class InputHandler : Singleton<InputHandler>
     private bool mouseLeftClickPressed, mouseLeftClickHold, mouseLeftClickReleased;
     private float cameraScroll;
 
+    public bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
     public Vector2 MousePosition => mousePosition;
     public bool MouseLeftClickPressed => mouseLeftClickPressed;
     public bool MouseLeftClickHold => mouseLeftClickHold;
@@ -82,6 +84,17 @@ public class InputHandler : Singleton<InputHandler>
         actionCameraScroll.canceled -= CameraScroll_Canceled;
     }
 
+    private void Update()
+    {
+        if(IsMouseOverUI)
+        {
+            DisableActionMaps();
+        }
+        else
+        {
+            EnableActionMaps();
+        }
+    }
     private void LateUpdate()
     {
         mouseLeftClickPressed = false;
