@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bakery
   BaseXPCapAmount: 30
+  BaseMoneyGenerationPerSecond: 2
+  NewLevelMoneyMultiplier: 1.5

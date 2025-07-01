@@ -5,4 +5,6 @@ public class FloorData : ScriptableObject
 {
     public string Name;
     public int BaseXPCapAmount;
+    public int BaseMoneyGenerationPerSecond;
+    public float NewLevelMoneyMultiplier;
 }

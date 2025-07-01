@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Cafe
   BaseXPCapAmount: 20
+  BaseMoneyGenerationPerSecond: 2
+  NewLevelMoneyMultiplier: 1.2

@@ -49,7 +49,7 @@ public class Floor : MonoBehaviour
 
             if(currentLevel == 2)
             {
-                moneyGenerationPerSecond = 1;
+                moneyGenerationPerSecond = data.BaseMoneyGenerationPerSecond;
             }
             else
             {
@@ -62,6 +62,7 @@ public class Floor : MonoBehaviour
     {
         this.data = data;
         currentLevelXP = data.BaseXPCapAmount;
+        newLevelMoneyMultiplier = data.NewLevelMoneyMultiplier;
         ui.SetNameText(data.Name);
     }
 }
