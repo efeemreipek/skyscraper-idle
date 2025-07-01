@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class Singleton<T> : MonoBehaviour where T : Component
 {
     protected static T instance;

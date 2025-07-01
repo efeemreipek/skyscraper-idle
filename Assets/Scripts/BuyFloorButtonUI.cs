@@ -15,6 +15,24 @@ public class BuyFloorButtonUI : MonoBehaviour
     {
         button = GetComponent<Button>();    
     }
+    private void OnEnable()
+    {
+        MoneyManager.Instance.OnCurrentMoneyChanged += CheckButtonInteractable;
+    }
+    private void OnDisable()
+    {
+        if(MoneyManager.HasInstance) MoneyManager.Instance.OnCurrentMoneyChanged -= CheckButtonInteractable;
+    }
+
+    private void CheckButtonInteractable(int amount)
+    {
+        button.interactable = amount >= data.BuyAmount;
+    }
+    private void BuyFloor(FloorData data)
+    {
+        MoneyManager.Instance.RemoveMoney(data.BuyAmount);
+        Skyscraper.Instance.AddNewFloor(data);
+    }
 
     public void InitializeButton(FloorData data)
     {
@@ -23,6 +41,6 @@ public class BuyFloorButtonUI : MonoBehaviour
         mpsText.text = $"MPS: ${data.BaseMoneyGenerationPerSecond}";
         buyAmountText.text = $"Amount: ${data.BuyAmount}";
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => Skyscraper.Instance.AddNewFloor(data));
+        button.onClick.AddListener(() => BuyFloor(data));
     }
 }
