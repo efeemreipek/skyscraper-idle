@@ -16,3 +16,4 @@ MonoBehaviour:
   BaseXPCapAmount: 30
   BaseMoneyGenerationPerSecond: 2
   NewLevelMoneyMultiplier: 1.5
+  BuyAmount: 100

@@ -7,4 +7,5 @@ public class FloorData : ScriptableObject
     public int BaseXPCapAmount;
     public int BaseMoneyGenerationPerSecond;
     public float NewLevelMoneyMultiplier;
+    public int BuyAmount;
 }
