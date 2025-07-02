@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
+    [Header("Data")]
     [SerializeField] private FloorData data;
+    [Header("Info")]
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private int currentLevelXP;
     [SerializeField] private int currentXP;
-    [SerializeField] private float newLevelXPMultiplier = 1.1f;
     [SerializeField] private int xPGainOnClick = 1;
     [SerializeField] private int xPGainOnTime = 0;
     [SerializeField] private int moneyGenerationPerSecond = 0;
-    [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
     [SerializeField] private int upgradeCost;
+    [Header("Multipliers")]
+    [SerializeField] private float newLevelXPMultiplier = 1.1f;
+    [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
     [SerializeField] private float newLevelUpgradeCostMultiplier = 1.5f;
 
     private float timer = 0f;
