@@ -57,7 +57,13 @@ public class FloorInfoUI : MonoBehaviour
         CheckUpgradeButtonInteractable(MoneyManager.Instance.CurrentMoney);
 
         upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(() => MoneyManager.Instance.RemoveMoney(floor.UpgradeCost));
+        upgradeButton.onClick.AddListener(() => 
+        {
+            MoneyManager.Instance.RemoveMoney(floor.UpgradeCost);
+            floor.UpdateXPGainOnTime();
+            floor.UpdateUpgradeCost();
+            upgradeButtonText.text = $"UPGRADE ${floor.UpgradeCost}";
+        });
 
         upgradeButtonText.text = $"UPGRADE ${floor.UpgradeCost}";
     }

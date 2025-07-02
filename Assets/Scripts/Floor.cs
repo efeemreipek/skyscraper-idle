@@ -9,6 +9,7 @@ public class Floor : MonoBehaviour
     [SerializeField] private int currentXP;
     [SerializeField] private float newLevelXPMultiplier = 1.1f;
     [SerializeField] private int xPGainOnClick = 1;
+    [SerializeField] private int xPGainOnTime = 0;
     [SerializeField] private int moneyGenerationPerSecond = 0;
     [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
     [SerializeField] private int upgradeCost;
@@ -32,12 +33,11 @@ public class Floor : MonoBehaviour
     }
     private void Update()
     {
-        if(currentLevel == 1) return;
-
         timer += Time.deltaTime;
         if(timer >= 1f)
         {
             timer = 0f;
+            AddXP(xPGainOnTime);
             MoneyManager.Instance.AddMoney(moneyGenerationPerSecond);
         }
     }
@@ -51,7 +51,6 @@ public class Floor : MonoBehaviour
             currentLevel++;
             currentXP = extraXP;
             currentLevelXP = Mathf.CeilToInt(currentLevelXP * newLevelXPMultiplier);
-            upgradeCost = Mathf.CeilToInt(upgradeCost *  newLevelUpgradeCostMultiplier);
 
             if(currentLevel == 2)
             {
@@ -65,7 +64,6 @@ public class Floor : MonoBehaviour
             OnFloorLeveledUp?.Invoke(currentLevel);
         }
     }
-
     public void InitializeFloor(FloorData data)
     {
         this.data = data;
@@ -73,5 +71,13 @@ public class Floor : MonoBehaviour
         newLevelMoneyMultiplier = data.NewLevelMoneyMultiplier;
         upgradeCost = data.BaseUpgradeCost;
         ui.SetNameText(data.Name);
+    }
+    public void UpdateXPGainOnTime()
+    {
+        xPGainOnTime++;
+    }
+    public void UpdateUpgradeCost()
+    {
+        upgradeCost = Mathf.CeilToInt(upgradeCost * newLevelUpgradeCostMultiplier);
     }
 }

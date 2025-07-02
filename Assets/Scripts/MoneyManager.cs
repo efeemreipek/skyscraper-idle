@@ -29,10 +29,12 @@ public class MoneyManager : Singleton<MoneyManager>
     }
     public void AddMoney(int amount)
     {
+        if(amount == 0) return;
         ChangeCurrentMoneyTo(CurrentMoney + amount);
     }
     public void RemoveMoney(int amount)
     {
+        if(amount == 0) return;
         ChangeCurrentMoneyTo(CurrentMoney - amount);
     }
 }
