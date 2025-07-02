@@ -26,11 +26,11 @@ public class BuyFloorButtonUI : MonoBehaviour
 
     private void CheckButtonInteractable(int amount)
     {
-        button.interactable = amount >= data.BuyAmount;
+        button.interactable = amount >= data.BuyCost;
     }
     private void BuyFloor(FloorData data)
     {
-        MoneyManager.Instance.RemoveMoney(data.BuyAmount);
+        MoneyManager.Instance.RemoveMoney(data.BuyCost);
         Skyscraper.Instance.AddNewFloor(data);
     }
 
@@ -39,7 +39,7 @@ public class BuyFloorButtonUI : MonoBehaviour
         this.data = data;
         nameText.text = data.Name;
         mpsText.text = $"MPS: ${data.BaseMoneyGenerationPerSecond}";
-        buyAmountText.text = $"Amount: ${data.BuyAmount}";
+        buyAmountText.text = $"Amount: ${data.BuyCost}";
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => BuyFloor(data));
     }

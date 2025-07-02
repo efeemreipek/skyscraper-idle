@@ -11,15 +11,20 @@ public class Floor : MonoBehaviour
     [SerializeField] private int xPGainOnClick = 1;
     [SerializeField] private int moneyGenerationPerSecond = 0;
     [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
+    [SerializeField] private int upgradeCost;
+    [SerializeField] private float newLevelUpgradeCostMultiplier = 1.5f;
 
     private float timer = 0f;
     private FloorUI ui;
+
+    public event Action<int> OnFloorLeveledUp;
 
     public FloorData Data => data;
     public int CurrentLevel => currentLevel;
     public int MoneyGenerationPerSecond => moneyGenerationPerSecond;
     public float CurrentLevelProgress => (float)currentXP / currentLevelXP;
     public int XPGainOnClick => xPGainOnClick;
+    public int UpgradeCost => upgradeCost;
 
     private void Awake()
     {
@@ -46,6 +51,7 @@ public class Floor : MonoBehaviour
             currentLevel++;
             currentXP = extraXP;
             currentLevelXP = Mathf.CeilToInt(currentLevelXP * newLevelXPMultiplier);
+            upgradeCost = Mathf.CeilToInt(upgradeCost *  newLevelUpgradeCostMultiplier);
 
             if(currentLevel == 2)
             {
@@ -55,6 +61,8 @@ public class Floor : MonoBehaviour
             {
                 moneyGenerationPerSecond = Mathf.CeilToInt(moneyGenerationPerSecond * newLevelMoneyMultiplier);
             }
+
+            OnFloorLeveledUp?.Invoke(currentLevel);
         }
     }
 
@@ -63,6 +71,7 @@ public class Floor : MonoBehaviour
         this.data = data;
         currentLevelXP = data.BaseXPCapAmount;
         newLevelMoneyMultiplier = data.NewLevelMoneyMultiplier;
+        upgradeCost = data.BaseUpgradeCost;
         ui.SetNameText(data.Name);
     }
 }
