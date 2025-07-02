@@ -23,7 +23,7 @@ public class MoneyManager : Singleton<MoneyManager>
 
     private void ChangeCurrentMoneyTo(int amount)
     {
-        CurrentMoney = amount;
+        CurrentMoney = amount < 0 ? 0 : amount;
         OnCurrentMoneyChanged?.Invoke(CurrentMoney);
         ui.UpdateText(CurrentMoney);
     }
