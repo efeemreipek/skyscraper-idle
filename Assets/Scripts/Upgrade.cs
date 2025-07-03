@@ -16,22 +16,32 @@ public class Upgrade : MonoBehaviour
     [SerializeField] private UpgradeType upgradeType;
 
     private bool canUpgrade = true;
+    private int upgradeCost;
     private UpgradeUI ui;
 
     public event Action<Upgrade, UpgradeType> OnUpgradeGathered;
 
-    private void Awake()
+    public int UpgradeCost => upgradeCost;
+
+    public void InitializeUpgrade(int cost)
     {
         ui = GetComponent<UpgradeUI>();
-    }
 
+        upgradeCost = cost;
+        ui.UpdateCost(upgradeCost);
+    }
     public void UpgradeButton()
     {
         if(!canUpgrade) return;
 
+        MoneyManager.Instance.RemoveMoney(upgradeCost);
+        ui.CheckInteractability(upgradeCost);
         OnUpgradeGathered?.Invoke(this, upgradeType);
 
-        if(isOneUseOnly) canUpgrade = false;
-        ui.Button.interactable = canUpgrade;
+        if(isOneUseOnly)
+        {
+            canUpgrade = false;
+            ui.Button.interactable = canUpgrade;
+        }
     }
 }

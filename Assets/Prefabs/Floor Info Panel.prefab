@@ -655,6 +655,7 @@ MonoBehaviour:
   - {fileID: 1322096617033959456}
   - {fileID: 8014031623855117261}
   - {fileID: 3129521981241290900}
+  upgradeCosts: 1e00000064000000c800000096000000
 --- !u!114 &-5845739537356200423
 MonoBehaviour:
   m_ObjectHideFlags: 0

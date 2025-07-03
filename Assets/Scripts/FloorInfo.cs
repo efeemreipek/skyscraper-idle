@@ -3,21 +3,27 @@ using UnityEngine;
 public class FloorInfo : MonoBehaviour
 {
     [SerializeField] private Upgrade[] upgrades = new Upgrade[4];
+    [SerializeField] private int[] upgradeCosts = new int[4];
 
     private Floor floor;
     private FloorInfoUI ui;
 
     private void OnEnable()
     {
-        foreach(Upgrade upgrade in upgrades)
+        for(int i = 0; i < upgrades.Length; i++)
         {
+            Upgrade upgrade = upgrades[i];
+
             upgrade.OnUpgradeGathered += OnUpgradeGathered;
+            upgrade.InitializeUpgrade(upgradeCosts[i]);
         }
     }
     private void OnDisable()
     {
-        foreach(Upgrade upgrade in upgrades)
+        for(int i = 0; i < upgrades.Length; i++)
         {
+            Upgrade upgrade = upgrades[i];
+
             upgrade.OnUpgradeGathered -= OnUpgradeGathered;
         }
     }
