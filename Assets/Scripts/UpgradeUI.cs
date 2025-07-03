@@ -12,8 +12,6 @@ public class UpgradeUI : MonoBehaviour
 
     private Upgrade upgrade;
 
-    public Button Button => button;
-
     private void OnEnable()
     {
         MoneyManager.Instance.OnCurrentMoneyChanged += OnCurrentMoneyChanged;
@@ -35,6 +33,7 @@ public class UpgradeUI : MonoBehaviour
 
     public void CheckInteractability(int cost)
     {
+        if(upgrade != null && !upgrade.CanUpgrade) return;
         button.interactable = MoneyManager.Instance.CurrentMoney >= cost;
     }
     private void OnCurrentMoneyChanged(int currentMoney)

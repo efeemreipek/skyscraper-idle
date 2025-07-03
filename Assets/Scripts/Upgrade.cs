@@ -22,6 +22,7 @@ public class Upgrade : MonoBehaviour
     public event Action<Upgrade, UpgradeType> OnUpgradeGathered;
 
     public int UpgradeCost => upgradeCost;
+    public bool CanUpgrade => canUpgrade;
 
     public void InitializeUpgrade(int cost)
     {
@@ -38,10 +39,6 @@ public class Upgrade : MonoBehaviour
         ui.CheckInteractability(upgradeCost);
         OnUpgradeGathered?.Invoke(this, upgradeType);
 
-        if(isOneUseOnly)
-        {
-            canUpgrade = false;
-            ui.Button.interactable = canUpgrade;
-        }
+        if(isOneUseOnly) canUpgrade = false;
     }
 }
