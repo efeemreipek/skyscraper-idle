@@ -8,29 +8,24 @@ public class FloorInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text mpsText;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private Image levelProgressImage;
-    [SerializeField] private Button upgradeButton;
-    [SerializeField] private TMP_Text upgradeButtonText;
+    [SerializeField] private GameObject upgradesContainer;
 
     private Floor floor;
 
     private void OnEnable()
     {
-        MoneyManager.Instance.OnCurrentMoneyChanged += OnCurrentMoneyChanged;
+        
     }
     private void OnDisable()
     {
-        if(floor != null) floor.OnFloorLeveledUp -= OnFloorLeveledUp;
-        if(MoneyManager.HasInstance) MoneyManager.Instance.OnCurrentMoneyChanged -= OnCurrentMoneyChanged;
+
     }
 
     public void InitializePanel(Floor floor)
     {
         this.floor = floor;
 
-        floor.OnFloorLeveledUp += OnFloorLeveledUp;
-
         nameText.text = floor.Data.Name;
-        InitializeUpgradeButton();
         UpdatePanel();
     }
     public void UpdatePanel()
@@ -40,31 +35,8 @@ public class FloorInfoUI : MonoBehaviour
         levelProgressImage.fillAmount = floor.CurrentLevelProgress;
     }
 
-    private void OnFloorLeveledUp(int newLevel)
+    public void OpenCloseUpgrades()
     {
-        upgradeButtonText.text = $"UPGRADE ${floor.UpgradeCost}";
-    }
-    private void OnCurrentMoneyChanged(int currentMoney)
-    {
-        CheckUpgradeButtonInteractable(currentMoney);
-    }
-    private void CheckUpgradeButtonInteractable(int amount)
-    {
-        upgradeButton.interactable = amount >= floor.UpgradeCost;
-    }
-    private void InitializeUpgradeButton()
-    {
-        CheckUpgradeButtonInteractable(MoneyManager.Instance.CurrentMoney);
-
-        upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(() => 
-        {
-            MoneyManager.Instance.RemoveMoney(floor.UpgradeCost);
-            floor.UpdateXPGainOnTime();
-            floor.UpdateUpgradeCost();
-            upgradeButtonText.text = $"UPGRADE ${floor.UpgradeCost}";
-        });
-
-        upgradeButtonText.text = $"UPGRADE ${floor.UpgradeCost}";
+        upgradesContainer.SetActive(!upgradesContainer.activeSelf);
     }
 }
