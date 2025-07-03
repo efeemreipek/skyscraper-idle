@@ -10,7 +10,6 @@ public class FloorInfoUI : MonoBehaviour
     [SerializeField] private Image levelProgressImage;
     [SerializeField] private GameObject upgradesContainer;
 
-    private Floor floor;
     private RectTransform scrollViewContentRectTransform;
 
     private void OnEnable()
@@ -24,16 +23,15 @@ public class FloorInfoUI : MonoBehaviour
     private void Start()
     {
         scrollViewContentRectTransform = GetComponentInParent<RectTransform>();
+
     }
 
     public void InitializePanel(Floor floor)
     {
-        this.floor = floor;
-
         nameText.text = floor.Data.Name;
-        UpdatePanel();
+        UpdatePanel(floor);
     }
-    public void UpdatePanel()
+    public void UpdatePanel(Floor floor)
     {
         mpsText.text = $"$ {floor.MoneyGenerationPerSecond}/sec";
         levelText.text = $"Level {floor.CurrentLevel}";

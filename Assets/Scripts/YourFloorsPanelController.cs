@@ -7,7 +7,7 @@ public class YourFloorsPanelController : MonoBehaviour
     [SerializeField] private GameObject floorInfoPrefab;
     [SerializeField] private RectTransform container;
 
-    private List<FloorInfoUI> floorInfoList = new List<FloorInfoUI>();
+    private List<FloorInfo> floorInfoList = new List<FloorInfo>();
 
     private void OnEnable()
     {
@@ -20,16 +20,16 @@ public class YourFloorsPanelController : MonoBehaviour
     private void OnFloorAdded(Floor floor)
     {
         GameObject floorInfoGO = Instantiate(floorInfoPrefab, container);
-        FloorInfoUI floorInfoUI = floorInfoGO.GetComponent<FloorInfoUI>();
-        floorInfoList.Add(floorInfoUI);
-        floorInfoUI.InitializePanel(floor);
+        FloorInfo floorInfo = floorInfoGO.GetComponent<FloorInfo>();
+        floorInfoList.Add(floorInfo);
+        floorInfo.InitializeFloorInfo(floor);
     }
 
     private void Update()
     {
-        foreach(FloorInfoUI floorInfoUI in floorInfoList)
+        foreach(FloorInfo floorInfo in floorInfoList)
         {
-            floorInfoUI.UpdatePanel();
+            floorInfo.UpdateFloorInfo();
         } 
     }
 }

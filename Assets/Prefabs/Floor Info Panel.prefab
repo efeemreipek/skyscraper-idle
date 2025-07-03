@@ -471,9 +471,10 @@ GameObject:
   - component: {fileID: 1185344237952636931}
   - component: {fileID: 9187363907609810669}
   - component: {fileID: 4311288761858340427}
-  - component: {fileID: -5845739537356200423}
   - component: {fileID: 7893912861504956264}
   - component: {fileID: 6735574657964666006}
+  - component: {fileID: 2864248277857056135}
+  - component: {fileID: -5845739537356200423}
   m_Layer: 5
   m_Name: Floor Info Panel
   m_TagString: Untagged
@@ -597,23 +598,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-5845739537356200423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7704582945310136175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd37f4ddd6533c47b94b6bb5c5f0817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: {fileID: 1060056460344947519}
-  mpsText: {fileID: 9021339430919133139}
-  levelText: {fileID: 6867378457015342300}
-  levelProgressImage: {fileID: 6289994803264975322}
-  upgradesContainer: {fileID: 7948206524091940942}
 --- !u!114 &7893912861504956264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +638,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &2864248277857056135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704582945310136175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5726009f48f139b4c87c3fed1be603c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgrades:
+  - {fileID: 3295386075509158970}
+  - {fileID: 1322096617033959456}
+  - {fileID: 8014031623855117261}
+  - {fileID: 3129521981241290900}
+--- !u!114 &-5845739537356200423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704582945310136175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd37f4ddd6533c47b94b6bb5c5f0817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 1060056460344947519}
+  mpsText: {fileID: 9021339430919133139}
+  levelText: {fileID: 6867378457015342300}
+  levelProgressImage: {fileID: 6289994803264975322}
+  upgradesContainer: {fileID: 7948206524091940942}
 --- !u!1 &7948206524091940942
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +968,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Increase XP gain on time
       objectReference: {fileID: 0}
+    - target: {fileID: 5776525066757370383, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1030,6 +1052,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1040,6 +1066,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
   m_PrefabInstance: {fileID: 3822820571138006947}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8014031623855117261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+  m_PrefabInstance: {fileID: 3822820571138006947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3e54f74c5bd6b49a212833172c42e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5216271854193542222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1059,6 +1096,10 @@ PrefabInstance:
     - target: {fileID: 3669780535235363101, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_text
       value: Enable XP gain on time
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776525066757370383, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_Pivot.x
@@ -1140,11 +1181,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+--- !u!114 &1322096617033959456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+  m_PrefabInstance: {fileID: 5216271854193542222}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3e54f74c5bd6b49a212833172c42e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2150046657550509630 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
@@ -1169,6 +1225,10 @@ PrefabInstance:
     - target: {fileID: 3669780535235363101, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_text
       value: Increase $ per second
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776525066757370383, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_Pivot.x
@@ -1250,6 +1310,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1260,6 +1324,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
   m_PrefabInstance: {fileID: 8166336648342469882}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3129521981241290900 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+  m_PrefabInstance: {fileID: 8166336648342469882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3e54f74c5bd6b49a212833172c42e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8611300774739245140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1272,6 +1347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade 1
       objectReference: {fileID: 0}
+    - target: {fileID: 463128958808962949, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1400180107730022850, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_text
       value: Advertise
@@ -1279,6 +1358,14 @@ PrefabInstance:
     - target: {fileID: 3669780535235363101, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_text
       value: Increase XP gain on click
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776525066757370383, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776525066757370383, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: isOneUseOnly
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: m_Pivot.x
@@ -1360,6 +1447,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: upgradeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: isOneUseOnly
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1370,3 +1465,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6175960757621187184, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
   m_PrefabInstance: {fileID: 8611300774739245140}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3295386075509158970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+  m_PrefabInstance: {fileID: 8611300774739245140}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3e54f74c5bd6b49a212833172c42e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
