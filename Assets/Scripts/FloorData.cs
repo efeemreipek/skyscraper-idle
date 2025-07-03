@@ -8,7 +8,6 @@ public class FloorData : ScriptableObject
     public int BuyCost;
     public int BaseXPCapAmount;
     public int BaseMoneyGenerationPerSecond;
-    public int BaseUpgradeCost;
     [Header("Multipliers")]
     public float NewLevelMoneyMultiplier;
 }

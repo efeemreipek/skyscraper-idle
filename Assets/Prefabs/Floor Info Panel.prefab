@@ -1185,6 +1185,10 @@ PrefabInstance:
       propertyPath: upgradeType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: isOneUseOnly
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1453,7 +1457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: isOneUseOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

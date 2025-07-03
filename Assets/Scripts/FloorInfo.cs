@@ -38,6 +38,6 @@ public class FloorInfo : MonoBehaviour
 
     private void OnUpgradeGathered(Upgrade upgrade, UpgradeType upgradeType)
     {
-        
+        floor.AcceptUpgrade(upgradeType);
     }
 }

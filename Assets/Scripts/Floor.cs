@@ -10,15 +10,14 @@ public class Floor : MonoBehaviour
     [SerializeField] private int currentLevelXP;
     [SerializeField] private int currentXP;
     [SerializeField] private int xPGainOnClick = 1;
-    [SerializeField] private int xPGainOnTime = 0;
+    [SerializeField] private int xPGainOnTime = 1;
     [SerializeField] private int moneyGenerationPerSecond = 0;
-    [SerializeField] private int upgradeCost;
     [Header("Multipliers")]
     [SerializeField] private float newLevelXPMultiplier = 1.1f;
     [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
-    [SerializeField] private float newLevelUpgradeCostMultiplier = 1.5f;
 
     private float timer = 0f;
+    private bool canGainXPOnTime;
     private FloorUI ui;
 
     public event Action<int> OnFloorLeveledUp;
@@ -28,7 +27,6 @@ public class Floor : MonoBehaviour
     public int MoneyGenerationPerSecond => moneyGenerationPerSecond;
     public float CurrentLevelProgress => (float)currentXP / currentLevelXP;
     public int XPGainOnClick => xPGainOnClick;
-    public int UpgradeCost => upgradeCost;
 
     private void Awake()
     {
@@ -40,7 +38,12 @@ public class Floor : MonoBehaviour
         if(timer >= 1f)
         {
             timer = 0f;
-            AddXP(xPGainOnTime);
+
+            if(canGainXPOnTime)
+            {
+                AddXP(xPGainOnTime);
+            }
+
             MoneyManager.Instance.AddMoney(moneyGenerationPerSecond);
         }
     }
@@ -72,15 +75,32 @@ public class Floor : MonoBehaviour
         this.data = data;
         currentLevelXP = data.BaseXPCapAmount;
         newLevelMoneyMultiplier = data.NewLevelMoneyMultiplier;
-        upgradeCost = data.BaseUpgradeCost;
         ui.SetNameText(data.Name);
     }
-    public void UpdateXPGainOnTime()
+    public void AcceptUpgrade(UpgradeType upgradeType)
     {
-        xPGainOnTime++;
-    }
-    public void UpdateUpgradeCost()
-    {
-        upgradeCost = Mathf.CeilToInt(upgradeCost * newLevelUpgradeCostMultiplier);
+        switch(upgradeType)
+        {
+            case UpgradeType.None:
+                break;
+            case UpgradeType.IncreaseXPOnClick:
+                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
+                xPGainOnClick++;
+                break;
+            case UpgradeType.EnableXPOnTime:
+                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
+                canGainXPOnTime = true;
+                break;
+            case UpgradeType.IncreaseXPOnTime:
+                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
+                xPGainOnTime++;
+                break;
+            case UpgradeType.IncreaseMPS:
+                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
+                moneyGenerationPerSecond = Mathf.CeilToInt(moneyGenerationPerSecond * newLevelMoneyMultiplier);
+                break;
+            default:
+                break;
+        }
     }
 }
