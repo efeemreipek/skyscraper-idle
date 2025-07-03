@@ -11,6 +11,7 @@ public class FloorInfoUI : MonoBehaviour
     [SerializeField] private GameObject upgradesContainer;
 
     private Floor floor;
+    private RectTransform scrollViewContentRectTransform;
 
     private void OnEnable()
     {
@@ -19,6 +20,10 @@ public class FloorInfoUI : MonoBehaviour
     private void OnDisable()
     {
 
+    }
+    private void Start()
+    {
+        scrollViewContentRectTransform = GetComponentInParent<RectTransform>();
     }
 
     public void InitializePanel(Floor floor)
@@ -38,5 +43,7 @@ public class FloorInfoUI : MonoBehaviour
     public void OpenCloseUpgrades()
     {
         upgradesContainer.SetActive(!upgradesContainer.activeSelf);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)upgradesContainer.transform); 
+        LayoutRebuilder.ForceRebuildLayoutImmediate(scrollViewContentRectTransform);
     }
 }
