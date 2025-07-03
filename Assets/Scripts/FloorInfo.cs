@@ -4,6 +4,7 @@ public class FloorInfo : MonoBehaviour
 {
     [SerializeField] private Upgrade[] upgrades = new Upgrade[4];
     [SerializeField] private int[] upgradeCosts = new int[4];
+    [SerializeField] private float upgradeCostMultiplier = 1.25f;
 
     private Floor floor;
     private FloorInfoUI ui;
@@ -45,5 +46,14 @@ public class FloorInfo : MonoBehaviour
     private void OnUpgradeGathered(Upgrade upgrade, UpgradeType upgradeType)
     {
         floor.AcceptUpgrade(upgradeType);
+
+        for(int i = 0; i < upgrades.Length; i++)
+        {
+            if(upgrades[i] == upgrade)
+            {
+                upgradeCosts[i] = Mathf.CeilToInt(upgradeCosts[i] * upgradeCostMultiplier);
+                upgrades[i].UpgradeCost = upgradeCosts[i];
+            }
+        }
     }
 }

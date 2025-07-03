@@ -21,7 +21,9 @@ public class Upgrade : MonoBehaviour
 
     public event Action<Upgrade, UpgradeType> OnUpgradeGathered;
 
-    public int UpgradeCost => upgradeCost;
+    public int UpgradeCost { get { return upgradeCost; } 
+                             set { upgradeCost = value; ui.UpdateCost(upgradeCost); } }
+
     public bool CanUpgrade => canUpgrade;
 
     public void InitializeUpgrade(int cost)
