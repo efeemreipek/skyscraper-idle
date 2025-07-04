@@ -42,6 +42,10 @@ public class Upgrade : MonoBehaviour
         ui.CheckInteractability(upgradeCost);
         OnUpgradeGathered?.Invoke(this, upgradeType);
 
-        if(isOneUseOnly) canUpgrade = false;
+        if(isOneUseOnly)
+        { 
+            canUpgrade = false;
+            ui.DisableInteraction();
+        }
     }
 }

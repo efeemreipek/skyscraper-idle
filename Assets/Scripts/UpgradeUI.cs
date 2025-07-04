@@ -36,6 +36,10 @@ public class UpgradeUI : MonoBehaviour
         if(upgrade != null && !upgrade.CanUpgrade) return;
         button.interactable = MoneyManager.Instance.CurrentMoney >= cost;
     }
+    public void DisableInteraction()
+    {
+        button.interactable = false;
+    }
     private void OnCurrentMoneyChanged(int currentMoney)
     {
         CheckInteractability(upgrade.UpgradeCost);
