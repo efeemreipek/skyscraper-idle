@@ -3679,6 +3679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSensitivity: 100
   lowestClamp: 1
+  highestClamp: 200
 --- !u!1 &1428040169
 GameObject:
   m_ObjectHideFlags: 0
