@@ -6,10 +6,13 @@ public class Skyscraper : Singleton<Skyscraper>
 {
     [SerializeField] private GameObject floorPrefab;
     [SerializeField] private float floorHeight = 4f;
+    [SerializeField] private int floorMaxLimit = 50;
 
     public List<Floor> FloorList = new List<Floor>();
 
     public event Action<Floor> OnFloorAdded;
+    
+    public bool CanBuyNewFloor => FloorList.Count < floorMaxLimit;
 
     private void Start()
     {

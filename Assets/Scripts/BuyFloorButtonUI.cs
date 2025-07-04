@@ -30,6 +30,8 @@ public class BuyFloorButtonUI : MonoBehaviour
     }
     private void BuyFloor(FloorData data)
     {
+        if(!Skyscraper.Instance.CanBuyNewFloor) return;
+
         MoneyManager.Instance.RemoveMoney(data.BuyCost);
         Skyscraper.Instance.AddNewFloor(data);
     }
