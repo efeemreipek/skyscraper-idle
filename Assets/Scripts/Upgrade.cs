@@ -37,7 +37,7 @@ public class Upgrade : MonoBehaviour
     {
         if(!canUpgrade) return;
 
-        AudioManager.Instance.PlayButtonClick();
+        AudioManager.Instance.PlayButtonClick(randomPitch: false);
         MoneyManager.Instance.RemoveMoney(upgradeCost);
         ui.CheckInteractability(upgradeCost);
         OnUpgradeGathered?.Invoke(this, upgradeType);

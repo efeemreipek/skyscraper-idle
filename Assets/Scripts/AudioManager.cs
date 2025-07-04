@@ -5,9 +5,12 @@ using UnityEngine;
 public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField] private AudioClip buttonClickClip;
+    [SerializeField] private AudioClip floorClickClip;
 
     [SerializeField] private GameObject audioPoolObject;
     [SerializeField] private int poolSize = 10;
+    [SerializeField] private float randomPitchLow = 0.8f;
+    [SerializeField] private float randomPitchHigh = 1.2f;
 
     private Queue<AudioSource> audioSourcePool = new Queue<AudioSource>();
 
@@ -55,16 +58,22 @@ public class AudioManager : Singleton<AudioManager>
         src.gameObject.SetActive(false);
         audioSourcePool.Enqueue(src);
     }
-    private void PlayClip(AudioClip clip, float volume = 1f)
+    private void PlayClip(AudioClip clip, float volume, bool randomPitch)
     {
         if(clip == null) return;
 
         AudioSource src = GetPooledAudioSource();
         src.clip = clip;
         src.volume = volume;
+        if(randomPitch) src.pitch = GetRandomPitch();
         src.Play();
         ReturnToPool(src);
     }
+    private float GetRandomPitch()
+    {
+        return Random.Range(randomPitchLow, randomPitchHigh);
+    }
 
-    public void PlayButtonClick() => PlayClip(buttonClickClip, 0.5f);
+    public void PlayButtonClick(float volume = 0.5f, bool randomPitch = true) => PlayClip(buttonClickClip, volume, randomPitch);
+    public void PlayFloorClick(float volume = 0.5f, bool randomPitch = true) => PlayClip(floorClickClip, volume, randomPitch);
 }

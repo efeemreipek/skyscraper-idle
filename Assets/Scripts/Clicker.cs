@@ -23,6 +23,7 @@ public class Clicker : MonoBehaviour
                 Floor floor = hit.collider.GetComponent<Floor>();
 
                 Debug.Log("Clicked on " + floor.Data.Name);
+                AudioManager.Instance.PlayFloorClick(0.2f);
                 floor.AddXP(floor.XPGainOnClick);
             }
         }

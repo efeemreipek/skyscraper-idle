@@ -5216,8 +5216,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonClickClip: {fileID: 8300000, guid: c99fcbdc85bfc5f4283ca02dc9290816, type: 3}
+  floorClickClip: {fileID: 8300000, guid: 61fd169c942ff0f43a529089a909fdba, type: 3}
   audioPoolObject: {fileID: 1879135106585816745, guid: 8c35f8b374e406c4cb2e536c40a7e0d9, type: 3}
   poolSize: 10
+  randomPitchLow: 0.8
+  randomPitchHigh: 1.2
 --- !u!1001 &1716461098
 PrefabInstance:
   m_ObjectHideFlags: 0
