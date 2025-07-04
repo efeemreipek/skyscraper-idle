@@ -12,18 +12,9 @@ public class FloorInfoUI : MonoBehaviour
 
     private RectTransform scrollViewContentRectTransform;
 
-    private void OnEnable()
-    {
-        
-    }
-    private void OnDisable()
-    {
-
-    }
     private void Start()
     {
         scrollViewContentRectTransform = GetComponentInParent<RectTransform>();
-
     }
 
     public void InitializePanel(Floor floor)
@@ -35,7 +26,16 @@ public class FloorInfoUI : MonoBehaviour
     {
         mpsText.text = $"$ {floor.MoneyGenerationPerSecond}/sec";
         levelText.text = $"Level {floor.CurrentLevel}";
-        levelProgressImage.fillAmount = floor.CurrentLevelProgress;
+        UpdateXPBar(floor.CurrentLevelProgress);
+    }
+    public void UpdatePanel(int newLevel, int mps)
+    {
+        mpsText.text = $"$ {mps}/sec";
+        levelText.text = $"Level {newLevel}";
+    }
+    public void UpdateXPBar(float currentProgress)
+    {
+        levelProgressImage.fillAmount = currentProgress;
     }
 
     public void OpenCloseUpgrades()

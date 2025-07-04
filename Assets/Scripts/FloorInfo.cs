@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FloorInfo : MonoBehaviour
@@ -27,6 +28,9 @@ public class FloorInfo : MonoBehaviour
 
             upgrade.OnUpgradeGathered -= OnUpgradeGathered;
         }
+
+        floor.OnFloorGainedXP -= OnFloorGainedXP;
+        floor.OnFloorLeveledUp -= OnFloorLeveledUp;
     }
     private void Awake()
     {
@@ -36,16 +40,17 @@ public class FloorInfo : MonoBehaviour
     public void InitializeFloorInfo(Floor floor)
     {
         this.floor = floor;
+
+        this.floor.OnFloorGainedXP += OnFloorGainedXP;
+        this.floor.OnFloorLeveledUp += OnFloorLeveledUp;
+
         ui.InitializePanel(floor);
-    }
-    public void UpdateFloorInfo()
-    {
-        ui.UpdatePanel(floor);
     }
 
     private void OnUpgradeGathered(Upgrade upgrade, UpgradeType upgradeType)
     {
         floor.AcceptUpgrade(upgradeType);
+        ui.UpdatePanel(floor.CurrentLevel, floor.MoneyGenerationPerSecond);
 
         for(int i = 0; i < upgrades.Length; i++)
         {
@@ -55,5 +60,13 @@ public class FloorInfo : MonoBehaviour
                 upgrades[i].UpgradeCost = upgradeCosts[i];
             }
         }
+    }
+    private void OnFloorGainedXP(float currentProgress)
+    {
+        ui.UpdateXPBar(currentProgress);
+    }
+    private void OnFloorLeveledUp(int newLevel, int mps)
+    {
+        ui.UpdatePanel(newLevel, mps);
     }
 }

@@ -20,7 +20,8 @@ public class Floor : MonoBehaviour
     private bool canGainXPOnTime;
     private FloorUI ui;
 
-    public event Action<int> OnFloorLeveledUp;
+    public event Action<int, int> OnFloorLeveledUp;
+    public event Action<float> OnFloorGainedXP;
 
     public FloorData Data => data;
     public int CurrentLevel => currentLevel;
@@ -67,8 +68,9 @@ public class Floor : MonoBehaviour
                 moneyGenerationPerSecond = Mathf.CeilToInt(moneyGenerationPerSecond * newLevelMoneyMultiplier);
             }
 
-            OnFloorLeveledUp?.Invoke(currentLevel);
+            OnFloorLeveledUp?.Invoke(currentLevel, moneyGenerationPerSecond);
         }
+        OnFloorGainedXP?.Invoke(CurrentLevelProgress);
     }
     public void InitializeFloor(FloorData data)
     {

@@ -24,12 +24,4 @@ public class YourFloorsPanelController : MonoBehaviour
         floorInfoList.Add(floorInfo);
         floorInfo.InitializeFloorInfo(floor);
     }
-
-    private void Update()
-    {
-        foreach(FloorInfo floorInfo in floorInfoList)
-        {
-            floorInfo.UpdateFloorInfo();
-        } 
-    }
 }
