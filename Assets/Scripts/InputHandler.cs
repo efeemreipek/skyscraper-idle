@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -16,6 +17,8 @@ public class InputHandler : Singleton<InputHandler>
     private Vector2 mousePosition;
     private bool mouseLeftClickPressed, mouseLeftClickHold, mouseLeftClickReleased;
     private float cameraScroll;
+
+    public event Action OnMouseLeftClickPressed;
 
     public bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
     public Vector2 MousePosition => mousePosition;
@@ -106,6 +109,7 @@ public class InputHandler : Singleton<InputHandler>
     private void MouseLeftClick_Performed(InputAction.CallbackContext obj)
     {
         mouseLeftClickPressed = true;
+        OnMouseLeftClickPressed?.Invoke();
         mouseLeftClickHold = true;
     }
     private void MouseLeftClick_Canceled(InputAction.CallbackContext obj)

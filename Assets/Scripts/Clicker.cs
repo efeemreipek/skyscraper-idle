@@ -10,22 +10,26 @@ public class Clicker : MonoBehaviour
     {
         cam = Camera.main;
     }
-
-    private void Update()
+    private void OnEnable()
     {
-        //TODO: change this to event based
-        if(InputHandler.Instance.MouseLeftClickPressed)
-        {
-            Ray ray = cam.ScreenPointToRay(InputHandler.Instance.MousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, 100f, floorLayer))
-            {
-                Floor floor = hit.collider.GetComponent<Floor>();
+        InputHandler.Instance.OnMouseLeftClickPressed += Click;
+    }
+    private void OnDisable()
+    {
+        if(InputHandler.HasInstance) InputHandler.Instance.OnMouseLeftClickPressed -= Click;
+    }
 
-                Debug.Log("Clicked on " + floor.Data.Name);
-                AudioManager.Instance.PlayFloorClick(0.2f);
-                floor.AddXP(floor.XPGainOnClick);
-            }
+    private void Click()
+    {
+        Ray ray = cam.ScreenPointToRay(InputHandler.Instance.MousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, 100f, floorLayer))
+        {
+            Floor floor = hit.collider.GetComponent<Floor>();
+
+            Debug.Log("Clicked on " + floor.Data.Name);
+            AudioManager.Instance.PlayFloorClick(0.2f);
+            floor.AddXP(floor.XPGainOnClick);
         }
     }
 }
