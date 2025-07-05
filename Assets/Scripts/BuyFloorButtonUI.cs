@@ -24,7 +24,7 @@ public class BuyFloorButtonUI : MonoBehaviour
         if(MoneyManager.HasInstance) MoneyManager.Instance.OnCurrentMoneyChanged -= CheckButtonInteractable;
     }
 
-    private void CheckButtonInteractable(int amount)
+    private void CheckButtonInteractable(long amount)
     {
         button.interactable = amount >= data.BuyCost;
     }

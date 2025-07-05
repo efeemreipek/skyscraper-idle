@@ -4,7 +4,7 @@ using UnityEngine;
 public class FloorInfo : MonoBehaviour
 {
     [SerializeField] private Upgrade[] upgrades = new Upgrade[4];
-    [SerializeField] private int[] upgradeCosts = new int[4];
+    [SerializeField] private long[] upgradeCosts = new long[4];
     [SerializeField] private float upgradeCostMultiplier = 1.25f;
 
     private Floor floor;
@@ -56,7 +56,8 @@ public class FloorInfo : MonoBehaviour
         {
             if(upgrades[i] == upgrade)
             {
-                upgradeCosts[i] = Mathf.CeilToInt(upgradeCosts[i] * upgradeCostMultiplier);
+                double newUpgradeCost = upgradeCosts[i] * upgradeCostMultiplier;
+                upgradeCosts[i] = (long)Math.Ceiling(newUpgradeCost);
                 upgrades[i].UpgradeCost = upgradeCosts[i];
             }
         }
@@ -65,7 +66,7 @@ public class FloorInfo : MonoBehaviour
     {
         ui.UpdateXPBar(currentProgress);
     }
-    private void OnFloorLeveledUp(int newLevel, int mps)
+    private void OnFloorLeveledUp(int newLevel, long mps)
     {
         ui.UpdatePanel(newLevel, mps);
     }

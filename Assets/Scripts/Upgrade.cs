@@ -16,17 +16,17 @@ public class Upgrade : MonoBehaviour
     [SerializeField] private UpgradeType upgradeType;
 
     private bool canUpgrade = true;
-    private int upgradeCost;
+    private long upgradeCost;
     private UpgradeUI ui;
 
     public event Action<Upgrade, UpgradeType> OnUpgradeGathered;
 
-    public int UpgradeCost { get { return upgradeCost; } 
+    public long UpgradeCost { get { return upgradeCost; } 
                              set { upgradeCost = value; ui.UpdateCost(upgradeCost); } }
 
     public bool CanUpgrade => canUpgrade;
 
-    public void InitializeUpgrade(int cost)
+    public void InitializeUpgrade(long cost)
     {
         ui = GetComponent<UpgradeUI>();
 

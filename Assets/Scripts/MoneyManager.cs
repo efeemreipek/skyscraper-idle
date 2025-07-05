@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class MoneyManager : Singleton<MoneyManager>
 {
-    [SerializeField] private int startingMoney = 10;
+    [SerializeField] private long startingMoney = 10;
 
     private MoneyManagerUI ui;
 
-    public event Action<int> OnCurrentMoneyChanged;
-    public int CurrentMoney;
+    public event Action<long> OnCurrentMoneyChanged;
+    public long CurrentMoney;
 
     protected override void Awake()
     {
@@ -21,19 +21,19 @@ public class MoneyManager : Singleton<MoneyManager>
         ChangeCurrentMoneyTo(startingMoney);
     }
 
-    private void ChangeCurrentMoneyTo(int amount)
+    private void ChangeCurrentMoneyTo(long amount)
     {
         CurrentMoney = amount < 0 ? 0 : amount;
         OnCurrentMoneyChanged?.Invoke(CurrentMoney);
         AudioManager.Instance.PlayMoneyChange(0.15f);
         ui.UpdateText(CurrentMoney);
     }
-    public void AddMoney(int amount)
+    public void AddMoney(long amount)
     {
         if(amount == 0) return;
         ChangeCurrentMoneyTo(CurrentMoney + amount);
     }
-    public void RemoveMoney(int amount)
+    public void RemoveMoney(long amount)
     {
         if(amount == 0) return;
         ChangeCurrentMoneyTo(CurrentMoney - amount);

@@ -25,13 +25,13 @@ public class UpgradeUI : MonoBehaviour
         upgrade = GetComponent<Upgrade>();
     }
 
-    public void UpdateCost(int cost)
+    public void UpdateCost(long cost)
     {
         costText.text = $"$ {cost}";
         CheckInteractability(cost);
     }
 
-    public void CheckInteractability(int cost)
+    public void CheckInteractability(long cost)
     {
         if(upgrade != null && !upgrade.CanUpgrade) return;
         button.interactable = MoneyManager.Instance.CurrentMoney >= cost;
@@ -40,7 +40,7 @@ public class UpgradeUI : MonoBehaviour
     {
         button.interactable = false;
     }
-    private void OnCurrentMoneyChanged(int currentMoney)
+    private void OnCurrentMoneyChanged(long currentMoney)
     {
         CheckInteractability(upgrade.UpgradeCost);
     }

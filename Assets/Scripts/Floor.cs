@@ -11,7 +11,7 @@ public class Floor : MonoBehaviour
     [SerializeField] private int currentXP;
     [SerializeField] private int xPGainOnClick = 1;
     [SerializeField] private int xPGainOnTime = 1;
-    [SerializeField] private int moneyGenerationPerSecond = 0;
+    [SerializeField] private long moneyGenerationPerSecond = 0;
     [Header("Multipliers")]
     [SerializeField] private float newLevelXPMultiplier = 1.1f;
     [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
@@ -20,12 +20,12 @@ public class Floor : MonoBehaviour
     private bool canGainXPOnTime;
     private FloorUI ui;
 
-    public event Action<int, int> OnFloorLeveledUp;
+    public event Action<int, long> OnFloorLeveledUp;
     public event Action<float> OnFloorGainedXP;
 
     public FloorData Data => data;
     public int CurrentLevel => currentLevel;
-    public int MoneyGenerationPerSecond => moneyGenerationPerSecond;
+    public long MoneyGenerationPerSecond => moneyGenerationPerSecond;
     public float CurrentLevelProgress => (float)currentXP / currentLevelXP;
     public int XPGainOnClick => xPGainOnClick;
 
@@ -65,7 +65,8 @@ public class Floor : MonoBehaviour
             }
             else
             {
-                moneyGenerationPerSecond = Mathf.CeilToInt(moneyGenerationPerSecond * newLevelMoneyMultiplier);
+                double newMPS = moneyGenerationPerSecond * newLevelMoneyMultiplier;
+                moneyGenerationPerSecond = (long)Math.Ceiling(newMPS);
             }
 
             OnFloorLeveledUp?.Invoke(currentLevel, moneyGenerationPerSecond);
@@ -99,7 +100,8 @@ public class Floor : MonoBehaviour
                 break;
             case UpgradeType.IncreaseMPS:
                 Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
-                moneyGenerationPerSecond = Mathf.CeilToInt(moneyGenerationPerSecond * newLevelMoneyMultiplier);
+                double newMPS = moneyGenerationPerSecond * newLevelMoneyMultiplier;
+                moneyGenerationPerSecond = (long)Math.Ceiling(newMPS);
                 break;
             default:
                 break;

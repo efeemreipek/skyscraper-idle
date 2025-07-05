@@ -28,7 +28,7 @@ public class FloorInfoUI : MonoBehaviour
         levelText.text = $"Level {floor.CurrentLevel}";
         UpdateXPBar(floor.CurrentLevelProgress);
     }
-    public void UpdatePanel(int newLevel, int mps)
+    public void UpdatePanel(int newLevel, long mps)
     {
         mpsText.text = $"$ {mps}/sec";
         levelText.text = $"Level {newLevel}";

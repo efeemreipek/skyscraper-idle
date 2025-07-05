@@ -6,7 +6,7 @@ public class MoneyManagerUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text currentMoneyText;
 
-    public void UpdateText(int currentMoney)
+    public void UpdateText(long currentMoney)
     {
         currentMoneyText.text = currentMoney.ToString();
     }
