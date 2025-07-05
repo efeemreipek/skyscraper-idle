@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class VehicleMover : MonoBehaviour
+public class ObjectMover : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float bound;
-    [SerializeField] private int direction; // 1: right 0: left
+    [SerializeField, Tooltip("0 is left, 1 or anything else is right")] private int direction; // 1: right 0: left
 
     private void Update()
     {
