@@ -5518,6 +5518,9 @@ MonoBehaviour:
   floorLayer:
     serializedVersion: 2
     m_Bits: 64
+  clickEffectPoolObject: {fileID: 7218889891589831008, guid: 297f092347cbe5a48b01db54e7643dfc, type: 3}
+  poolSize: 20
+  lifetime: 0.1
 --- !u!4 &1466841029
 Transform:
   m_ObjectHideFlags: 0
