@@ -437,8 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c040bbb17d0502b4f9f7524dad646848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  bound: 30
+  data: {fileID: 11400000, guid: d7d69a0ecc78a004b9c3517152152f4c, type: 2}
   direction: 1
 --- !u!4 &94294117 stripped
 Transform:
@@ -1379,8 +1378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c040bbb17d0502b4f9f7524dad646848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  bound: 30
+  data: {fileID: 11400000, guid: d7d69a0ecc78a004b9c3517152152f4c, type: 2}
   direction: 1
 --- !u!4 &241683436 stripped
 Transform:
@@ -1480,8 +1478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c040bbb17d0502b4f9f7524dad646848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  bound: 30
+  data: {fileID: 11400000, guid: d7d69a0ecc78a004b9c3517152152f4c, type: 2}
   direction: 0
 --- !u!4 &251508755 stripped
 Transform:
@@ -2572,8 +2569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c040bbb17d0502b4f9f7524dad646848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  bound: 30
+  data: {fileID: 11400000, guid: d7d69a0ecc78a004b9c3517152152f4c, type: 2}
   direction: 1
 --- !u!4 &537065304 stripped
 Transform:
@@ -6175,8 +6171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c040bbb17d0502b4f9f7524dad646848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  bound: 30
+  data: {fileID: 11400000, guid: d7d69a0ecc78a004b9c3517152152f4c, type: 2}
   direction: 0
 --- !u!1 &1601040806
 GameObject:
@@ -7076,8 +7071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c040bbb17d0502b4f9f7524dad646848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  bound: 30
+  data: {fileID: 11400000, guid: d7d69a0ecc78a004b9c3517152152f4c, type: 2}
   direction: 0
 --- !u!4 &1735331721 stripped
 Transform:
