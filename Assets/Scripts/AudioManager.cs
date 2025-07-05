@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    [Header("Clips")]
     [SerializeField] private AudioClip buttonClickClip;
     [SerializeField] private AudioClip floorClickClip;
-
+    [SerializeField] private AudioClip moneyChangeClip;
+    [Header("Data")]
     [SerializeField] private GameObject audioPoolObject;
     [SerializeField] private int poolSize = 10;
     [SerializeField] private float randomPitchLow = 0.8f;
@@ -76,4 +78,5 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayButtonClick(float volume = 0.5f, bool randomPitch = true) => PlayClip(buttonClickClip, volume, randomPitch);
     public void PlayFloorClick(float volume = 0.5f, bool randomPitch = true) => PlayClip(floorClickClip, volume, randomPitch);
+    public void PlayMoneyChange(float volume = 0.5f, bool randomPitch = true) => PlayClip(moneyChangeClip, volume, randomPitch);
 }

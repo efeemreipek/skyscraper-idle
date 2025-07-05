@@ -5691,6 +5691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonClickClip: {fileID: 8300000, guid: c99fcbdc85bfc5f4283ca02dc9290816, type: 3}
   floorClickClip: {fileID: 8300000, guid: 61fd169c942ff0f43a529089a909fdba, type: 3}
+  moneyChangeClip: {fileID: 8300000, guid: d63f15c35e5bbab4c9bec1ca4a6a4146, type: 3}
   audioPoolObject: {fileID: 1879135106585816745, guid: 8c35f8b374e406c4cb2e536c40a7e0d9, type: 3}
   poolSize: 10
   randomPitchLow: 0.8
