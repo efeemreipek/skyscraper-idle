@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public void StartButton()
     {
         StartCoroutine(LoadGame());
+        AudioManager.Instance.PlayButtonClick();
     }
     private IEnumerator LoadGame()
     {
@@ -28,19 +29,27 @@ public class MenuManager : MonoBehaviour
     public void SettingsButton()
     {
         menuTransform.DOAnchorPos(settingsMenuPosition, moveDuration).SetEase(moveEase);
+        AudioManager.Instance.PlayButtonClick();
     }
     public void QuitButton()
     {
+        StartCoroutine(QuitGame());
+        AudioManager.Instance.PlayButtonClick();
+    }
+    private IEnumerator QuitGame()
+    {
+        yield return new WaitForSeconds(0.1f);
         Application.Quit();
     }
 
     // SETTINGS MENU
     public void ApplyButton()
     {
-
+        AudioManager.Instance.PlayButtonClick();
     }
     public void BackButton()
     {
         menuTransform.DOAnchorPos(mainMenuPosition, moveDuration).SetEase(moveEase);
+        AudioManager.Instance.PlayButtonClick();
     }
 }
