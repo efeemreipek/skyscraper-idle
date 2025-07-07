@@ -71,7 +71,6 @@ public class Floor : MonoBehaviour
     public void AddXPByClick()
     {
         AddXP(GetXPOnClick());
-        Debug.Log(GetXPOnClick());
     }
     public void InitializeFloor(FloorData data)
     {
@@ -97,19 +96,15 @@ public class Floor : MonoBehaviour
             case UpgradeType.None:
                 break;
             case UpgradeType.IncreaseXPOnClick:
-                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
                 clickXPBoost *= 1.5f;
                 break;
             case UpgradeType.EnableXPOnTime:
-                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
                 hasManager = true;
                 break;
             case UpgradeType.IncreaseXPOnTime:
-                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
                 passiveXPBoost *= 1.3f;
                 break;
             case UpgradeType.IncreaseMPS:
-                Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
                 moneyBoost *= 1.2f;
                 break;
             default:

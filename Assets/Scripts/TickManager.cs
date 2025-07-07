@@ -17,7 +17,6 @@ public class TickManager : Singleton<TickManager>
         if(timer >= tickTime)
         {
             timer = 0f;
-            Debug.Log("New Tick");
 
             int soundsPlayed = 0;
 
