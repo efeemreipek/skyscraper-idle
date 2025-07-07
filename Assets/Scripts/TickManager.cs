@@ -26,7 +26,7 @@ public class TickManager : Singleton<TickManager>
 
                 if(generatedMoney && soundsPlayed < maxSoundsPerTick)
                 {
-                    AudioManager.Instance.PlayMoneyChange(0.15f);
+                    AudioManager.Instance.PlayMoneyChange();
                     soundsPlayed++;
                 }
             }

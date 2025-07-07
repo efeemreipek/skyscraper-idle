@@ -13,6 +13,10 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private int poolSize = 10;
     [SerializeField] private float randomPitchLow = 0.8f;
     [SerializeField] private float randomPitchHigh = 1.2f;
+    [Header("Volumes")]
+    [SerializeField] private float buttonClickVolume = 1f;
+    [SerializeField] private float floorClickVolume = 1f;
+    [SerializeField] private float moneyChangeVolume = 1f;
 
     private Queue<AudioSource> audioSourcePool = new Queue<AudioSource>();
 
@@ -76,7 +80,7 @@ public class AudioManager : Singleton<AudioManager>
         return Random.Range(randomPitchLow, randomPitchHigh);
     }
 
-    public void PlayButtonClick(float volume = 0.5f, bool randomPitch = true) => PlayClip(buttonClickClip, volume, randomPitch);
-    public void PlayFloorClick(float volume = 0.5f, bool randomPitch = true) => PlayClip(floorClickClip, volume, randomPitch);
-    public void PlayMoneyChange(float volume = 0.5f, bool randomPitch = true) => PlayClip(moneyChangeClip, volume, randomPitch);
+    public void PlayButtonClick(bool randomPitch = true) => PlayClip(buttonClickClip, buttonClickVolume, randomPitch);
+    public void PlayFloorClick(bool randomPitch = true) => PlayClip(floorClickClip, floorClickVolume, randomPitch);
+    public void PlayMoneyChange(bool randomPitch = true) => PlayClip(moneyChangeClip, moneyChangeVolume, randomPitch);
 }

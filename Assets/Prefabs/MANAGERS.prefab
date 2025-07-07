@@ -51,6 +51,9 @@ MonoBehaviour:
   poolSize: 10
   randomPitchLow: 0.8
   randomPitchHigh: 1.2
+  buttonClickVolume: 1
+  floorClickVolume: 1
+  moneyChangeVolume: 0.5
 --- !u!1 &1774463928799220649
 GameObject:
   m_ObjectHideFlags: 0

@@ -85,7 +85,7 @@ public class Clicker : MonoBehaviour
 
             GetClickEffect(clickEffectPosition);
 
-            AudioManager.Instance.PlayFloorClick(0.2f);
+            AudioManager.Instance.PlayFloorClick();
             floor.AddXPByClick();
         }
     }
