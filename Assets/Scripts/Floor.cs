@@ -89,23 +89,23 @@ public class Floor : MonoBehaviour
         passiveXPBoost = 1f;
         moneyBoost = 1f;
     }
-    public void AcceptUpgrade(UpgradeType upgradeType)
+    public void AcceptUpgrade(Upgrade upgrade, UpgradeType upgradeType)
     {
         switch(upgradeType)
         {
             case UpgradeType.None:
                 break;
             case UpgradeType.IncreaseXPOnClick:
-                clickXPBoost *= 1.5f;
+                clickXPBoost = 1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 5f;
                 break;
             case UpgradeType.EnableXPOnTime:
                 hasManager = true;
                 break;
             case UpgradeType.IncreaseXPOnTime:
-                passiveXPBoost *= 1.3f;
+                passiveXPBoost = 1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 3.5f;
                 break;
             case UpgradeType.IncreaseMPS:
-                moneyBoost *= 1.2f;
+                moneyBoost = 1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 4f;
                 break;
             default:
                 break;

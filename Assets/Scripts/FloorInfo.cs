@@ -47,7 +47,7 @@ public class FloorInfo : MonoBehaviour
 
     private void OnUpgradeGathered(Upgrade upgrade, UpgradeType upgradeType)
     {
-        floor.AcceptUpgrade(upgradeType);
+        floor.AcceptUpgrade(upgrade, upgradeType);
         ui.UpdatePanel(floor.CurrentLevel, floor.CurrentMoneyPerSecond);
     }
     private void OnFloorGainedXP(float currentProgress)

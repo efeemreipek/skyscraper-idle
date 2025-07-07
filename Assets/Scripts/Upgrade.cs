@@ -28,6 +28,7 @@ public class Upgrade : MonoBehaviour
                              set { upgradeCost = value; ui.UpdateCost(upgradeCost); } }
 
     public bool CanUpgrade => canUpgrade;
+    public int CurrentLevel => currentLevel;
 
     public void InitializeUpgrade()
     {
