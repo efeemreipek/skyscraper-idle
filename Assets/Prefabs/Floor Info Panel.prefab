@@ -655,8 +655,6 @@ MonoBehaviour:
   - {fileID: 1322096617033959456}
   - {fileID: 8014031623855117261}
   - {fileID: 3129521981241290900}
-  upgradeCosts: 1e0000000000000064000000000000009600000000000000c800000000000000
-  upgradeCostMultiplier: 1.25
 --- !u!114 &-5845739537356200423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,8 +1053,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: baseCost
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: upgradeType
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: costMultiplier
+      value: 1.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1184,12 +1190,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: baseCost
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: upgradeType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: isOneUseOnly
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: costMultiplier
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1317,8 +1331,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: baseCost
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: upgradeType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: costMultiplier
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1454,12 +1476,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: baseCost
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: upgradeType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
       propertyPath: isOneUseOnly
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501768784974253166, guid: 1a570f513f8214d4a8e762469ac2b00a, type: 3}
+      propertyPath: costMultiplier
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

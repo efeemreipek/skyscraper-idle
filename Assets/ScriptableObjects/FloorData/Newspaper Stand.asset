@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Newspaper Stand
   m_EditorClassIdentifier: 
   Name: Newspaper Stand
-  BaseXPCapAmount: 16
-  BaseMoneyGenerationPerSecond: 1
-  NewLevelMoneyMultiplier: 1.1
   BuyCost: 10
-  BaseUpgradeCost: 8
+  BaseXPCapAmount: 100
+  BaseXPOnClick: 5
+  BaseXPOnTime: 2
+  BaseMoneyGenerationPerSecond: 1
+  LevelXPMultiplier: 1.25
+  LevelMoneyMultiplier: 1.3

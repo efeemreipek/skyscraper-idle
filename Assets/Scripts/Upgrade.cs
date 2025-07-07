@@ -12,8 +12,11 @@ public enum UpgradeType
 
 public class Upgrade : MonoBehaviour
 {
-    [SerializeField] private bool isOneUseOnly;
     [SerializeField] private UpgradeType upgradeType;
+    [SerializeField] private int currentLevel;
+    [SerializeField] private long baseCost;
+    [SerializeField] private float costMultiplier;
+    [SerializeField] private bool isOneUseOnly;
 
     private bool canUpgrade = true;
     private long upgradeCost;
@@ -26,11 +29,11 @@ public class Upgrade : MonoBehaviour
 
     public bool CanUpgrade => canUpgrade;
 
-    public void InitializeUpgrade(long cost)
+    public void InitializeUpgrade()
     {
         ui = GetComponent<UpgradeUI>();
 
-        upgradeCost = cost;
+        upgradeCost = baseCost;
         ui.UpdateCost(upgradeCost);
     }
     public void UpgradeButton()
@@ -40,6 +43,9 @@ public class Upgrade : MonoBehaviour
         AudioManager.Instance.PlayButtonClick(0.7f, false);
         MoneyManager.Instance.RemoveMoney(upgradeCost);
         ui.CheckInteractability(upgradeCost);
+        currentLevel++;
+        upgradeCost = GetUpgradeCost();
+        ui.UpdateCost(upgradeCost);
         OnUpgradeGathered?.Invoke(this, upgradeType);
 
         if(isOneUseOnly)
@@ -47,5 +53,10 @@ public class Upgrade : MonoBehaviour
             canUpgrade = false;
             ui.DisableInteraction();
         }
+    }
+    public long GetUpgradeCost()
+    {
+        double cost = baseCost * Mathf.Pow(costMultiplier, currentLevel);
+        return (long)Math.Ceiling(cost);
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 public class FloorInfo : MonoBehaviour
 {
     [SerializeField] private Upgrade[] upgrades = new Upgrade[4];
-    [SerializeField] private long[] upgradeCosts = new long[4];
-    [SerializeField] private float upgradeCostMultiplier = 1.25f;
 
     private Floor floor;
     private FloorInfoUI ui;
@@ -17,7 +15,7 @@ public class FloorInfo : MonoBehaviour
             Upgrade upgrade = upgrades[i];
 
             upgrade.OnUpgradeGathered += OnUpgradeGathered;
-            upgrade.InitializeUpgrade(upgradeCosts[i]);
+            upgrade.InitializeUpgrade();
         }
     }
     private void OnDisable()
@@ -50,17 +48,7 @@ public class FloorInfo : MonoBehaviour
     private void OnUpgradeGathered(Upgrade upgrade, UpgradeType upgradeType)
     {
         floor.AcceptUpgrade(upgradeType);
-        ui.UpdatePanel(floor.CurrentLevel, floor.MoneyGenerationPerSecond);
-
-        for(int i = 0; i < upgrades.Length; i++)
-        {
-            if(upgrades[i] == upgrade)
-            {
-                double newUpgradeCost = upgradeCosts[i] * upgradeCostMultiplier;
-                upgradeCosts[i] = (long)Math.Ceiling(newUpgradeCost);
-                upgrades[i].UpgradeCost = upgradeCosts[i];
-            }
-        }
+        ui.UpdatePanel(floor.CurrentLevel, floor.CurrentMoneyPerSecond);
     }
     private void OnFloorGainedXP(float currentProgress)
     {

@@ -6,8 +6,14 @@ public class FloorData : ScriptableObject
     [Header("Info")]
     public string Name;
     public int BuyCost;
-    public int BaseXPCapAmount;
-    public int BaseMoneyGenerationPerSecond;
-    [Header("Multipliers")]
-    public float NewLevelMoneyMultiplier;
+
+    [Header("Base Stats")]
+    public int BaseXPCapAmount = 100;
+    public int BaseXPOnClick = 10;
+    public int BaseXPOnTime = 2;
+    public int BaseMoneyGenerationPerSecond = 1;
+
+    [Header("Growth Multipliers")]
+    public float LevelXPMultiplier = 1.25f;
+    public float LevelMoneyMultiplier = 1.3f;
 }

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Bakery
   m_EditorClassIdentifier: 
   Name: Bakery
-  BaseXPCapAmount: 30
-  BaseMoneyGenerationPerSecond: 2
-  NewLevelMoneyMultiplier: 1.5
-  BuyCost: 100
-  BaseUpgradeCost: 36
+  BuyCost: 1000
+  BaseXPCapAmount: 100
+  BaseXPOnClick: 20
+  BaseXPOnTime: 2
+  BaseMoneyGenerationPerSecond: 12
+  LevelXPMultiplier: 1.25
+  LevelMoneyMultiplier: 1.3

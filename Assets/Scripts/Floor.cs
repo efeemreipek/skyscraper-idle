@@ -5,18 +5,17 @@ public class Floor : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private FloorData data;
-    [Header("Info")]
-    [SerializeField] private int currentLevel = 1;
-    [SerializeField] private int currentLevelXP;
-    [SerializeField] private int currentXP;
-    [SerializeField] private int xPGainOnClick = 1;
-    [SerializeField] private int xPGainOnTime = 1;
-    [SerializeField] private long moneyGenerationPerSecond = 0;
-    [Header("Multipliers")]
-    [SerializeField] private float newLevelXPMultiplier = 1.1f;
-    [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
 
-    private bool canGainXPOnTime;
+    [Header("Progress")]
+    [SerializeField] private int currentLevel = 1;
+    [SerializeField] private int currentXP = 0;
+
+    [Header("Upgrades")]
+    [SerializeField] private bool hasManager = false;
+    [SerializeField] private float clickXPBoost = 1f;
+    [SerializeField] private float passiveXPBoost = 1f;
+    [SerializeField] private float moneyBoost = 1f;
+
     private FloorUI ui;
 
     public event Action<int, long> OnFloorLeveledUp;
@@ -24,9 +23,8 @@ public class Floor : MonoBehaviour
 
     public FloorData Data => data;
     public int CurrentLevel => currentLevel;
-    public long MoneyGenerationPerSecond => moneyGenerationPerSecond;
-    public float CurrentLevelProgress => (float)currentXP / currentLevelXP;
-    public int XPGainOnClick => xPGainOnClick;
+    public float CurrentLevelProgress => (float)currentXP / GetXPRequiredForLevel(currentLevel);
+    public long CurrentMoneyPerSecond => currentLevel >= 2 ? GetMoneyPerSecond() : 0;
 
     private void OnEnable()
     {
@@ -34,10 +32,7 @@ public class Floor : MonoBehaviour
     }
     private void OnDisable()
     {
-        if(TickManager.HasInstance)
-        {
-            TickManager.Instance.RemoveFromList(this);
-        }
+        if(TickManager.HasInstance) TickManager.Instance.RemoveFromList(this);
     }
     private void Awake()
     {
@@ -46,14 +41,14 @@ public class Floor : MonoBehaviour
 
     public bool OnTick()
     {
-        if(canGainXPOnTime)
+        if(hasManager)
         {
-            AddXP(xPGainOnTime);
+            AddXP(GetXPOnTime());
         }
 
-        if(moneyGenerationPerSecond > 0)
+        if(CurrentMoneyPerSecond > 0)
         {
-            MoneyManager.Instance.AddMoney(moneyGenerationPerSecond);
+            MoneyManager.Instance.AddMoney(CurrentMoneyPerSecond);
             return true;
         }
 
@@ -62,33 +57,38 @@ public class Floor : MonoBehaviour
     public void AddXP(int amount)
     {
         currentXP += amount;
-        if(currentXP >= currentLevelXP)
+
+        while(currentXP >= GetXPRequiredForLevel(currentLevel))
         {
-            int extraXP = currentXP - currentLevelXP;
+            currentXP -= GetXPRequiredForLevel(currentLevel);
             currentLevel++;
-            currentXP = extraXP;
-            currentLevelXP = Mathf.CeilToInt(currentLevelXP * newLevelXPMultiplier);
 
-            if(currentLevel == 2)
-            {
-                moneyGenerationPerSecond = data.BaseMoneyGenerationPerSecond;
-            }
-            else
-            {
-                double newMPS = moneyGenerationPerSecond * newLevelMoneyMultiplier;
-                moneyGenerationPerSecond = (long)Math.Ceiling(newMPS);
-            }
-
-            OnFloorLeveledUp?.Invoke(currentLevel, moneyGenerationPerSecond);
+            OnFloorLeveledUp?.Invoke(currentLevel, CurrentMoneyPerSecond);
         }
+
         OnFloorGainedXP?.Invoke(CurrentLevelProgress);
+    }
+    public void AddXPByClick()
+    {
+        AddXP(GetXPOnClick());
+        Debug.Log(GetXPOnClick());
     }
     public void InitializeFloor(FloorData data)
     {
         this.data = data;
-        currentLevelXP = data.BaseXPCapAmount;
-        newLevelMoneyMultiplier = data.NewLevelMoneyMultiplier;
+
+        currentLevel = 1;
+        currentXP = 0;
+        ResetUpgrades();
+
         ui.SetNameText(data.Name);
+    }
+    private void ResetUpgrades()
+    {
+        hasManager = false;
+        clickXPBoost = 1f;
+        passiveXPBoost = 1f;
+        moneyBoost = 1f;
     }
     public void AcceptUpgrade(UpgradeType upgradeType)
     {
@@ -98,23 +98,31 @@ public class Floor : MonoBehaviour
                 break;
             case UpgradeType.IncreaseXPOnClick:
                 Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
-                xPGainOnClick++;
+                clickXPBoost *= 1.5f;
                 break;
             case UpgradeType.EnableXPOnTime:
                 Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
-                canGainXPOnTime = true;
+                hasManager = true;
                 break;
             case UpgradeType.IncreaseXPOnTime:
                 Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
-                xPGainOnTime++;
+                passiveXPBoost *= 1.3f;
                 break;
             case UpgradeType.IncreaseMPS:
                 Debug.Log($"{data.Name} has gathered the upgrade: {upgradeType}");
-                double newMPS = moneyGenerationPerSecond * newLevelMoneyMultiplier;
-                moneyGenerationPerSecond = (long)Math.Ceiling(newMPS);
+                moneyBoost *= 1.2f;
                 break;
             default:
                 break;
         }
+    }
+
+    private int GetXPOnClick() => Mathf.CeilToInt(data.BaseXPOnClick * clickXPBoost);
+    private int GetXPOnTime() => Mathf.CeilToInt(data.BaseXPOnTime * passiveXPBoost);
+    private int GetXPRequiredForLevel(int level) => Mathf.CeilToInt(data.BaseXPCapAmount * Mathf.Pow(data.LevelXPMultiplier, level - 1));
+    private long GetMoneyPerSecond()
+    {
+        double baseMPS = data.BaseMoneyGenerationPerSecond * Mathf.Pow(data.LevelMoneyMultiplier, currentLevel - 2);
+        return (long)Math.Ceiling(baseMPS * moneyBoost);
     }
 }
