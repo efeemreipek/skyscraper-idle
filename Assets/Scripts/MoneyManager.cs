@@ -25,7 +25,6 @@ public class MoneyManager : Singleton<MoneyManager>
     {
         CurrentMoney = amount < 0 ? 0 : amount;
         OnCurrentMoneyChanged?.Invoke(CurrentMoney);
-        AudioManager.Instance.PlayMoneyChange(0.15f);
         ui.UpdateText(CurrentMoney);
     }
     public void AddMoney(long amount)

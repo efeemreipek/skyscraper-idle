@@ -16,7 +16,6 @@ public class Floor : MonoBehaviour
     [SerializeField] private float newLevelXPMultiplier = 1.1f;
     [SerializeField] private float newLevelMoneyMultiplier = 1.1f;
 
-    private float timer = 0f;
     private bool canGainXPOnTime;
     private FloorUI ui;
 
@@ -29,26 +28,37 @@ public class Floor : MonoBehaviour
     public float CurrentLevelProgress => (float)currentXP / currentLevelXP;
     public int XPGainOnClick => xPGainOnClick;
 
+    private void OnEnable()
+    {
+        TickManager.Instance.AddToList(this);
+    }
+    private void OnDisable()
+    {
+        if(TickManager.HasInstance)
+        {
+            TickManager.Instance.RemoveFromList(this);
+        }
+    }
     private void Awake()
     {
         ui = GetComponent<FloorUI>();
     }
-    private void Update()
+
+    public bool OnTick()
     {
-        timer += Time.deltaTime;
-        if(timer >= 1f)
+        if(canGainXPOnTime)
         {
-            timer = 0f;
-
-            if(canGainXPOnTime)
-            {
-                AddXP(xPGainOnTime);
-            }
-
-            MoneyManager.Instance.AddMoney(moneyGenerationPerSecond);
+            AddXP(xPGainOnTime);
         }
-    }
 
+        if(moneyGenerationPerSecond > 0)
+        {
+            MoneyManager.Instance.AddMoney(moneyGenerationPerSecond);
+            return true;
+        }
+
+        return false;
+    }
     public void AddXP(int amount)
     {
         currentXP += amount;
