@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -40,6 +41,10 @@ public class SettingsManager : MonoBehaviour
     };
     private FullScreenMode fullScreenMode;
 
+    [Header("Quality")]
+    [SerializeField] private TMP_Dropdown qualityDropdown;
+    private int qualityIndex;
+
     private void Start()
     {
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
@@ -53,6 +58,9 @@ public class SettingsManager : MonoBehaviour
 
         SetFullScreenCurrent();
         fullScreenDropdown.onValueChanged.AddListener(SetFullScreen);
+
+        SetQualityCurrent();
+        qualityDropdown.onValueChanged.AddListener(SetQuality);
     }
 
     public void ApplyButton()
@@ -64,6 +72,8 @@ public class SettingsManager : MonoBehaviour
         else audioMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolume) * 20);
 
         Screen.SetResolution(resolutionWidth, resolutionHeight, fullScreenMode);
+
+        QualitySettings.SetQualityLevel(qualityIndex);
     }
 
     public void SetMusicVolume(float volume)
@@ -151,5 +161,17 @@ public class SettingsManager : MonoBehaviour
         }
 
         fullScreenDropdown.value = index;
+    }
+    public void SetQuality(int index)
+    {
+        qualityIndex = index;
+    }
+    private void SetQualityCurrent()
+    {
+        qualityDropdown.ClearOptions();
+        qualityDropdown.AddOptions(QualitySettings.names.ToList());
+
+        int currentLevel = QualitySettings.GetQualityLevel();
+        qualityDropdown.value = currentLevel;
     }
 }
