@@ -45,6 +45,10 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown qualityDropdown;
     private int qualityIndex;
 
+    [Header("VSync")]
+    [SerializeField] private Toggle vSyncToggle;
+    private bool isVSyncOn;
+
     private void Start()
     {
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
@@ -61,6 +65,9 @@ public class SettingsManager : MonoBehaviour
 
         SetQualityCurrent();
         qualityDropdown.onValueChanged.AddListener(SetQuality);
+
+        SetVSyncCurrent();
+        vSyncToggle.onValueChanged.AddListener(SetVSync);
     }
 
     public void ApplyButton()
@@ -74,6 +81,8 @@ public class SettingsManager : MonoBehaviour
         Screen.SetResolution(resolutionWidth, resolutionHeight, fullScreenMode);
 
         QualitySettings.SetQualityLevel(qualityIndex);
+
+        QualitySettings.vSyncCount = isVSyncOn ? 1 : 0;
     }
 
     public void SetMusicVolume(float volume)
@@ -173,5 +182,13 @@ public class SettingsManager : MonoBehaviour
 
         int currentLevel = QualitySettings.GetQualityLevel();
         qualityDropdown.value = currentLevel;
+    }
+    public void SetVSync(bool isOn)
+    {
+        isVSyncOn = isOn;
+    }
+    private void SetVSyncCurrent()
+    {
+        vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
     }
 }
