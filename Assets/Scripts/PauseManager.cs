@@ -44,6 +44,7 @@ public class PauseManager : MonoBehaviour
     public void BackToMenuButton()
     {
         StartCoroutine(BackToMenu());
+        Time.timeScale = 1f;
         AudioManager.Instance.PlayButtonClick();
     }
     private IEnumerator BackToMenu()
