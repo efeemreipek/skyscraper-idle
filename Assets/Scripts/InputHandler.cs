@@ -12,13 +12,16 @@ public class InputHandler : Singleton<InputHandler>
 
     private InputAction actionMousePosition;
     private InputAction actionMouseLeftClick;
+    private InputAction actionPause;
     private InputAction actionCameraScroll;
 
     private Vector2 mousePosition;
     private bool mouseLeftClickPressed, mouseLeftClickHold, mouseLeftClickReleased;
+    private bool pausePressed, pauseReleased;
     private float cameraScroll;
 
     public event Action OnMouseLeftClickPressed;
+    public event Action OnPausePressed;
 
     public bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
     public Vector2 MousePosition => mousePosition;
@@ -26,6 +29,7 @@ public class InputHandler : Singleton<InputHandler>
     public bool MouseLeftClickHold => mouseLeftClickHold;
     public bool MouseLeftClickReleased => mouseLeftClickReleased;
     public float CameraScroll => cameraScroll;
+    public bool PausePressed => pausePressed;
 
     private void OnEnable()
     {
@@ -34,33 +38,38 @@ public class InputHandler : Singleton<InputHandler>
         InitializeActionMaps();
         InitializeInputActions();
 
-        EnableActionMaps();
+        EnableActions();
         SubscribeToInputEvents();
     }
     private void OnDisable()
     {
         UnsubscribeFromInputEvents();
-        DisableActionMaps();
+        DisableActions();
     }
     private void InitializeActionMaps()
     {
         actionMapGame = inputActionAsset.FindActionMap("Game");
         actionMapCamera = inputActionAsset.FindActionMap("Camera");
     }
-    private void EnableActionMaps()
+    private void EnableActions()
     {
-        actionMapGame.Enable();
-        actionMapCamera.Enable();
+        actionMousePosition.Enable();
+        actionMouseLeftClick.Enable();
+        actionPause.Enable();
+        actionCameraScroll.Enable();
     }
-    private void DisableActionMaps()
+    private void DisableActions()
     {
-        actionMapGame.Disable();
-        actionMapCamera.Disable();
+        actionMousePosition.Disable();
+        actionMouseLeftClick.Disable();
+
+        actionCameraScroll.Disable();
     }
     private void InitializeInputActions()
     {
         actionMousePosition = actionMapGame.FindAction("Mouse Position");
         actionMouseLeftClick = actionMapGame.FindAction("Mouse Left Click");
+        actionPause = actionMapGame.FindAction("Pause");
 
         actionCameraScroll = actionMapCamera.FindAction("Camera Scroll");
     }
@@ -71,6 +80,9 @@ public class InputHandler : Singleton<InputHandler>
 
         actionMouseLeftClick.performed += MouseLeftClick_Performed;
         actionMouseLeftClick.canceled += MouseLeftClick_Canceled;
+
+        actionPause.performed += Pause_Performed;
+        actionPause.canceled += Pause_Canceled;
 
         actionCameraScroll.performed += CameraScroll_Performed;
         actionCameraScroll.canceled += CameraScroll_Canceled;
@@ -83,6 +95,9 @@ public class InputHandler : Singleton<InputHandler>
         actionMouseLeftClick.performed -= MouseLeftClick_Performed;
         actionMouseLeftClick.canceled -= MouseLeftClick_Canceled;
 
+        actionPause.performed -= Pause_Performed;
+        actionPause.canceled -= Pause_Canceled;
+
         actionCameraScroll.performed -= CameraScroll_Performed;
         actionCameraScroll.canceled -= CameraScroll_Canceled;
     }
@@ -91,17 +106,20 @@ public class InputHandler : Singleton<InputHandler>
     {
         if(IsMouseOverUI)
         {
-            DisableActionMaps();
+            DisableActions();
         }
         else
         {
-            EnableActionMaps();
+            EnableActions();
         }
     }
     private void LateUpdate()
     {
         mouseLeftClickPressed = false;
         mouseLeftClickReleased = false;
+
+        pausePressed = false;
+        pauseReleased = false;
     }
 
     private void MousePosition_Performed(InputAction.CallbackContext obj) => mousePosition = obj.ReadValue<Vector2>();
@@ -116,6 +134,15 @@ public class InputHandler : Singleton<InputHandler>
     {
         mouseLeftClickHold = false;
         mouseLeftClickReleased = true;
+    }
+    private void Pause_Performed(InputAction.CallbackContext obj)
+    {
+        pausePressed = true;
+        OnPausePressed?.Invoke();
+    }
+    private void Pause_Canceled(InputAction.CallbackContext obj)
+    {
+        pauseReleased = true;
     }
     private void CameraScroll_Performed(InputAction.CallbackContext obj) => cameraScroll = obj.ReadValue<float>();
     private void CameraScroll_Canceled(InputAction.CallbackContext obj) => cameraScroll = 0f;
