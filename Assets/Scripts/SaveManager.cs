@@ -68,9 +68,9 @@ public class SaveManager : Singleton<SaveManager>
             });
         }
     }
-    public void LoadFloors(List<FloorSaveData> floorSaveDatas)
+    public List<FloorSaveData> LoadFloors()
     {
-
+        return saveData.Floors;
     }
 
     private void OnApplicationQuit()

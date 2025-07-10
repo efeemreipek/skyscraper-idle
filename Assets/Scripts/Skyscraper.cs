@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Skyscraper : Singleton<Skyscraper>
 {
+    [SerializeField] private FloorDataList floorDataList;
     [SerializeField] private GameObject floorPrefab;
     [SerializeField] private float floorHeight = 4f;
     [SerializeField] private int floorMaxLimit = 50;
@@ -17,20 +18,47 @@ public class Skyscraper : Singleton<Skyscraper>
 
     private void Start()
     {
-        foreach(Transform child in transform)
+        List<FloorSaveData> floorSaveDatas = SaveManager.Instance.LoadFloors();
+
+        foreach(var floorSaveData in floorSaveDatas)
         {
-            Floor floor = child.GetComponent<Floor>();
-            FloorList.Add(floor);
-            OnFloorAdded?.Invoke(floor);
+            FloorData floorData = LoadFloorData(floorSaveData);
+            if(floorData != null)
+            {
+                AddNewFloor(floorData, floorSaveData);
+            }
+            else
+            {
+                Debug.Log("Missing FloorData for ID:" + floorSaveData.FloorID);
+            }
         }
     }
 
-    public void AddNewFloor(FloorData data)
+    private FloorData LoadFloorData(FloorSaveData floorSaveData)
+    {
+        foreach(FloorData floorData in floorDataList.List)
+        {
+            if(string.Equals(floorSaveData.FloorID, floorData.Name))
+            {
+                return floorData;
+            }
+        }
+        return null;
+    }
+
+    public void AddNewFloor(FloorData data, FloorSaveData saveData = null)
     {
         GameObject floorGO = Instantiate(floorPrefab, transform);
         floorGO.transform.localPosition = new Vector3(0f, FloorList.Count * floorHeight, 0f);
+
         Floor floor = floorGO.GetComponent<Floor>();
         floor.InitializeFloor(data);
+
+        if(saveData != null)
+        {
+            floor.LoadFromSave(saveData);
+        }
+
         FloorList.Add(floor);
         OnFloorAdded?.Invoke(floor);
     }

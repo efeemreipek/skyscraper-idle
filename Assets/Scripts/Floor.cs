@@ -120,6 +120,18 @@ public class Floor : MonoBehaviour
                 break;
         }
     }
+    public void LoadFromSave(FloorSaveData data)
+    {
+        currentLevel = data.CurrentLevel;
+        currentXP = data.CurrentXP;
+        hasManager = data.HasManager;
+        clickXPBoost = data.ClickXPBoost;
+        passiveXPBoost = data.PassiveXPBoost;
+        moneyBoost = data.MoneyBoost;
+
+        OnFloorLeveledUp?.Invoke(currentLevel, CurrentMoneyPerSecond);
+        OnFloorGainedXP?.Invoke(CurrentLevelProgress);
+    }
 
     private int GetXPOnClick() => Mathf.CeilToInt(data.BaseXPOnClick * clickXPBoost);
     private int GetXPOnTime() => Mathf.CeilToInt(data.BaseXPOnTime * passiveXPBoost);

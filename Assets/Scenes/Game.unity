@@ -3595,6 +3595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38b19056f7267241ac3a1f94af18d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorDataList: {fileID: 11400000, guid: 4e97cd7a4946ab1418f2adf2678b6a95, type: 2}
   floorPrefab: {fileID: 5690029827121401576, guid: 8cb83b57212e13e44ab5db488a5d937f, type: 3}
   floorHeight: 4
   floorMaxLimit: 50
