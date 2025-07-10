@@ -24,8 +24,13 @@ public class PrestigeManager : Singleton<PrestigeManager>
         base.Awake();
 
         ui = GetComponent<PrestigeManagerUI>();
-        ui.UpdateButton(currentPrestige);
         ui.AddListener(OnButtonClicked);
+
+        var prestige = SaveManager.Instance.LoadPrestige();
+        totalPrestige = prestige.totalPrestige;
+        currentPrestige = prestige.currentPrestige;
+
+        ui.UpdateButton(currentPrestige);
     }
 
     private void OnMoneyChanged(long newMoney)

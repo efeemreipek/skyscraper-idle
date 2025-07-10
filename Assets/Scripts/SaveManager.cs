@@ -44,9 +44,9 @@ public class SaveManager : Singleton<SaveManager>
         saveData.TotalPrestige = PrestigeManager.Instance.TotalPrestige;
         saveData.CurrentPrestige = PrestigeManager.Instance.CurrentPrestige;
     }
-    public void LoadPrestige(float totalPrestige, float currentPrestige)
+    public (float totalPrestige, float currentPrestige) LoadPrestige()
     {
-
+        return (saveData.TotalPrestige, saveData.CurrentPrestige);
     }
     public void SaveFloors()
     {
