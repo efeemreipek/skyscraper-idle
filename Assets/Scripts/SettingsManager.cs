@@ -102,6 +102,12 @@ public class SettingsManager : Singleton<SettingsManager>
 
         musicText.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
         SFXText.text = Mathf.RoundToInt(SFXSlider.value * 100).ToString();
+
+        if(musicVolume <= 0.001f) audioMixer.SetFloat("MusicVolume", -80f);
+        else audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20);
+
+        if(SFXVolume <= 0.001f) audioMixer.SetFloat("SFXVolume", -80f);
+        else audioMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolume) * 20);
     }
 
     public void ApplyButton()
