@@ -82,12 +82,20 @@ public class SettingsManager : Singleton<SettingsManager>
     }
     private void ApplySettings(SettingsData settingsData)
     {
-        musicVolume = settingsData.MusicVolume;
-        SFXVolume = settingsData.SFXVolume;
-        resolutionIndex = settingsData.ResolutionIndex;
-        fullScreenIndex = settingsData.FullScreenIndex;
-        qualityIndex = settingsData.QualityIndex;
-        isVSyncOn = settingsData.IsVSyncOn;
+        if(settingsData != null)
+        {
+            musicVolume = settingsData.MusicVolume;
+            SFXVolume = settingsData.SFXVolume;
+            resolutionIndex = settingsData.ResolutionIndex;
+            fullScreenIndex = settingsData.FullScreenIndex;
+            qualityIndex = settingsData.QualityIndex;
+            isVSyncOn = settingsData.IsVSyncOn;
+        }
+        else
+        {
+            musicVolume = musicSlider.value;
+            SFXVolume = SFXSlider.value;
+        }
 
         musicSlider.value = musicVolume;
         SFXSlider.value = SFXVolume;
@@ -217,16 +225,32 @@ public class SettingsManager : Singleton<SettingsManager>
         fullScreenDropdown.ClearOptions();
         fullScreenDropdown.AddOptions(fullScreenOptions);
 
-        fullScreenIndex = settingsData.FullScreenIndex;
-        fullScreenMode = fullScreenIndex switch
+        if(settingsData != null)
         {
-            0 => FullScreenMode.ExclusiveFullScreen,
-            1 => FullScreenMode.FullScreenWindow,
-            2 => FullScreenMode.Windowed,
-            _ => Screen.fullScreenMode
-        };
+            fullScreenIndex = settingsData.FullScreenIndex;
+            fullScreenMode = fullScreenIndex switch
+            {
+                0 => FullScreenMode.ExclusiveFullScreen,
+                1 => FullScreenMode.FullScreenWindow,
+                2 => FullScreenMode.Windowed,
+                _ => Screen.fullScreenMode
+            };
 
-        fullScreenDropdown.value = fullScreenIndex;
+            fullScreenDropdown.value = fullScreenIndex;
+        }
+        else
+        {
+            fullScreenMode = Screen.fullScreenMode;
+            fullScreenIndex = fullScreenMode switch
+            {
+                FullScreenMode.ExclusiveFullScreen => 0,
+                FullScreenMode.FullScreenWindow => 1,
+                FullScreenMode.Windowed => 2,
+                _ => 0
+            };
+
+            fullScreenDropdown.value = fullScreenIndex;
+        }
     }
     public void SetQuality(int index)
     {
@@ -237,8 +261,14 @@ public class SettingsManager : Singleton<SettingsManager>
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(QualitySettings.names.ToList());
 
-        //int currentLevel = QualitySettings.GetQualityLevel();
-        qualityDropdown.value = settingsData.QualityIndex;
+        if(settingsData != null)
+        {
+            qualityDropdown.value = settingsData.QualityIndex;
+        }
+        else
+        {
+            int currentLevel = QualitySettings.GetQualityLevel();
+        }
     }
     public void SetVSync(bool isOn)
     {
@@ -246,7 +276,13 @@ public class SettingsManager : Singleton<SettingsManager>
     }
     private void SetVSyncCurrent()
     {
-        //vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
-        vSyncToggle.isOn = settingsData.IsVSyncOn;
+        if(settingsData != null)
+        {
+            vSyncToggle.isOn = settingsData.IsVSyncOn;
+        }
+        else
+        {
+            vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
+        }
     }
 }
