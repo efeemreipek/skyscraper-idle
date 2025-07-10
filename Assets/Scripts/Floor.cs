@@ -23,8 +23,13 @@ public class Floor : MonoBehaviour
 
     public FloorData Data => data;
     public int CurrentLevel => currentLevel;
+    public int CurrentXP => currentXP;
     public float CurrentLevelProgress => (float)currentXP / GetXPRequiredForLevel(currentLevel);
     public long CurrentMoneyPerSecond => currentLevel >= 2 ? GetMoneyPerSecond() : 0;
+    public bool HasManager => hasManager;
+    public float ClickXPBoost => clickXPBoost;
+    public float PassiveXPBoost => passiveXPBoost;
+    public float MoneyBoost => moneyBoost;
 
     private void OnEnable()
     {
@@ -84,7 +89,7 @@ public class Floor : MonoBehaviour
     }
     private void ResetUpgrades()
     {
-        float prestige = PrestigeManager.Instance.Prestige;
+        float prestige = PrestigeManager.Instance.TotalPrestige;
 
         hasManager = false;
         clickXPBoost = 1f + prestige;
@@ -93,7 +98,7 @@ public class Floor : MonoBehaviour
     }
     public void AcceptUpgrade(Upgrade upgrade, UpgradeType upgradeType)
     {
-        float prestige = PrestigeManager.Instance.Prestige;
+        float prestige = PrestigeManager.Instance.TotalPrestige;
 
         switch(upgradeType)
         {

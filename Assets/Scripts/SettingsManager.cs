@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SettingsManager : MonoBehaviour
+public class SettingsManager : Singleton<SettingsManager>
 {
     [Header("Audio")]
     [SerializeField] private AudioMixer audioMixer;
@@ -30,6 +30,7 @@ public class SettingsManager : MonoBehaviour
         "3840 x 2160",
     };
     private int resolutionWidth, resolutionHeight;
+    private int resolutionIndex;
 
     [Header("Fullscreen")]
     [SerializeField] private TMP_Dropdown fullScreenDropdown;
@@ -40,6 +41,7 @@ public class SettingsManager : MonoBehaviour
         "Windowed"
     };
     private FullScreenMode fullScreenMode;
+    private int fullScreenIndex;
 
     [Header("Quality")]
     [SerializeField] private TMP_Dropdown qualityDropdown;
@@ -49,16 +51,16 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Toggle vSyncToggle;
     private bool isVSyncOn;
 
+
+    private SettingsData settingsData;
+    public SettingsData SettingsData => settingsData;
+
     private void Start()
     {
-        musicVolume = musicSlider.value;
-        SFXVolume = SFXSlider.value;
+        LoadSettings();
 
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         SFXSlider.onValueChanged.AddListener(SetSFXVolume);
-
-        musicText.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
-        SFXText.text = Mathf.RoundToInt(SFXSlider.value * 100).ToString();
 
         SetResolutionCurrent();
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
@@ -71,6 +73,27 @@ public class SettingsManager : MonoBehaviour
 
         SetVSyncCurrent();
         vSyncToggle.onValueChanged.AddListener(SetVSync);
+    }
+
+    private void LoadSettings()
+    {
+        settingsData = SaveManager.Instance.LoadSettings();
+        ApplySettings(settingsData);
+    }
+    private void ApplySettings(SettingsData settingsData)
+    {
+        musicVolume = settingsData.MusicVolume;
+        SFXVolume = settingsData.SFXVolume;
+        resolutionIndex = settingsData.ResolutionIndex;
+        fullScreenIndex = settingsData.FullScreenIndex;
+        qualityIndex = settingsData.QualityIndex;
+        isVSyncOn = settingsData.IsVSyncOn;
+
+        musicSlider.value = musicVolume;
+        SFXSlider.value = SFXVolume;
+
+        musicText.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
+        SFXText.text = Mathf.RoundToInt(SFXSlider.value * 100).ToString();
     }
 
     public void ApplyButton()
@@ -86,6 +109,17 @@ public class SettingsManager : MonoBehaviour
         QualitySettings.SetQualityLevel(qualityIndex);
 
         QualitySettings.vSyncCount = isVSyncOn ? 1 : 0;
+
+        settingsData = new SettingsData()
+        {
+            MusicVolume = musicVolume,
+            SFXVolume = SFXVolume,
+            ResolutionIndex = resolutionIndex,
+            FullScreenIndex = fullScreenIndex,
+            QualityIndex = qualityIndex,
+            IsVSyncOn = isVSyncOn
+        };
+        SaveManager.Instance.SaveSettings();
     }
 
     public void SetMusicVolume(float volume)
@@ -100,6 +134,8 @@ public class SettingsManager : MonoBehaviour
     }
     public void SetResolution(int index)
     {
+        resolutionIndex = index;
+
         string[] parts = resolutionDropdown.options[index].text.Split('x');
         resolutionWidth = int.Parse(parts[0].Trim());
         resolutionHeight = int.Parse(parts[1].Trim());
@@ -108,6 +144,21 @@ public class SettingsManager : MonoBehaviour
     {
         resolutionDropdown.ClearOptions();
         resolutionDropdown.AddOptions(resolutionOptions);
+
+        if(settingsData != null)
+        {
+            resolutionIndex = settingsData.ResolutionIndex;
+
+            if(resolutionIndex >= 0 && resolutionIndex < resolutionOptions.Count)
+            {
+                string[] parts = resolutionOptions[resolutionIndex].Split('x');
+                resolutionWidth = int.Parse(parts[0].Trim());
+                resolutionHeight = int.Parse(parts[1].Trim());
+
+                resolutionDropdown.value = resolutionIndex;
+                return;
+            }
+        }
 
         int currentWidth = Screen.width;
         int currentHeight = Screen.height;
@@ -122,6 +173,7 @@ public class SettingsManager : MonoBehaviour
             if(w == currentWidth && h == currentHeight)
             {
                 resolutionDropdown.value = i;
+                resolutionIndex = i;
 
                 resolutionWidth = w;
                 resolutionHeight = h;
@@ -137,6 +189,7 @@ public class SettingsManager : MonoBehaviour
             resolutionDropdown.ClearOptions();
             resolutionDropdown.AddOptions(resolutionOptions);
             resolutionDropdown.value = resolutionOptions.Count - 1;
+            resolutionIndex = resolutionOptions.Count - 1;
 
             resolutionWidth = currentWidth;
             resolutionHeight = currentHeight;
@@ -144,6 +197,8 @@ public class SettingsManager : MonoBehaviour
     }
     public void SetFullScreen(int index)
     {
+        fullScreenIndex = index;
+
         switch(index)
         {
             case 0:
@@ -162,17 +217,16 @@ public class SettingsManager : MonoBehaviour
         fullScreenDropdown.ClearOptions();
         fullScreenDropdown.AddOptions(fullScreenOptions);
 
-        FullScreenMode current = Screen.fullScreenMode;
-
-        int index = 1;
-        switch(current)
+        fullScreenIndex = settingsData.FullScreenIndex;
+        fullScreenMode = fullScreenIndex switch
         {
-            case FullScreenMode.ExclusiveFullScreen: index = 0; fullScreenMode = FullScreenMode.ExclusiveFullScreen; break;
-            case FullScreenMode.FullScreenWindow:    index = 1; fullScreenMode = FullScreenMode.FullScreenWindow; break;
-            case FullScreenMode.Windowed:            index = 2; fullScreenMode = FullScreenMode.Windowed; break;
-        }
+            0 => FullScreenMode.ExclusiveFullScreen,
+            1 => FullScreenMode.FullScreenWindow,
+            2 => FullScreenMode.Windowed,
+            _ => Screen.fullScreenMode
+        };
 
-        fullScreenDropdown.value = index;
+        fullScreenDropdown.value = fullScreenIndex;
     }
     public void SetQuality(int index)
     {
@@ -183,8 +237,8 @@ public class SettingsManager : MonoBehaviour
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(QualitySettings.names.ToList());
 
-        int currentLevel = QualitySettings.GetQualityLevel();
-        qualityDropdown.value = currentLevel;
+        //int currentLevel = QualitySettings.GetQualityLevel();
+        qualityDropdown.value = settingsData.QualityIndex;
     }
     public void SetVSync(bool isOn)
     {
@@ -192,6 +246,7 @@ public class SettingsManager : MonoBehaviour
     }
     private void SetVSyncCurrent()
     {
-        vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
+        //vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
+        vSyncToggle.isOn = settingsData.IsVSyncOn;
     }
 }

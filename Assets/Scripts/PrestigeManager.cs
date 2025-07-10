@@ -8,7 +8,8 @@ public class PrestigeManager : Singleton<PrestigeManager>
 
     private PrestigeManagerUI ui;
 
-    public float Prestige => totalPrestige;
+    public float TotalPrestige => totalPrestige;
+    public float CurrentPrestige => currentPrestige;
 
     private void OnEnable()
     {
