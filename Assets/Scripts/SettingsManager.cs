@@ -51,6 +51,9 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
+        musicVolume = musicSlider.value;
+        SFXVolume = SFXSlider.value;
+
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         SFXSlider.onValueChanged.AddListener(SetSFXVolume);
 
