@@ -84,28 +84,32 @@ public class Floor : MonoBehaviour
     }
     private void ResetUpgrades()
     {
+        float prestige = PrestigeManager.Instance.Prestige;
+
         hasManager = false;
-        clickXPBoost = 1f;
-        passiveXPBoost = 1f;
-        moneyBoost = 1f;
+        clickXPBoost = 1f + prestige;
+        passiveXPBoost = 1f + prestige;
+        moneyBoost = 1f + prestige;
     }
     public void AcceptUpgrade(Upgrade upgrade, UpgradeType upgradeType)
     {
+        float prestige = PrestigeManager.Instance.Prestige;
+
         switch(upgradeType)
         {
             case UpgradeType.None:
                 break;
             case UpgradeType.IncreaseXPOnClick:
-                clickXPBoost = 1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 5f;
+                clickXPBoost = (1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 5f) + prestige;
                 break;
             case UpgradeType.EnableXPOnTime:
                 hasManager = true;
                 break;
             case UpgradeType.IncreaseXPOnTime:
-                passiveXPBoost = 1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 3.5f;
+                passiveXPBoost = (1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 3.5f) + prestige;
                 break;
             case UpgradeType.IncreaseMPS:
-                moneyBoost = 1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 4f;
+                moneyBoost = (1f + Mathf.Log10(upgrade.CurrentLevel + 1f) * 4f) + prestige;
                 break;
             default:
                 break;

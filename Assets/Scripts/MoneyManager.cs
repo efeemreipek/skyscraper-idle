@@ -18,7 +18,7 @@ public class MoneyManager : Singleton<MoneyManager>
     }
     private void Start()
     {
-        ChangeCurrentMoneyTo(startingMoney);
+        SetMoneyToStartingMoney();
     }
 
     private void ChangeCurrentMoneyTo(long amount)
@@ -36,5 +36,9 @@ public class MoneyManager : Singleton<MoneyManager>
     {
         if(amount == 0) return;
         ChangeCurrentMoneyTo(CurrentMoney - amount);
+    }
+    public void SetMoneyToStartingMoney()
+    {
+        ChangeCurrentMoneyTo(startingMoney);
     }
 }

@@ -11,6 +11,7 @@ public class Skyscraper : Singleton<Skyscraper>
     public List<Floor> FloorList = new List<Floor>();
 
     public event Action<Floor> OnFloorAdded;
+    public event Action OnSkyscraperCleared;
     
     public bool CanBuyNewFloor => FloorList.Count < floorMaxLimit;
 
@@ -32,5 +33,14 @@ public class Skyscraper : Singleton<Skyscraper>
         floor.InitializeFloor(data);
         FloorList.Add(floor);
         OnFloorAdded?.Invoke(floor);
+    }
+    public void ClearSkyscraper()
+    {
+        FloorList.Clear();
+        for(int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        OnSkyscraperCleared?.Invoke();
     }
 }

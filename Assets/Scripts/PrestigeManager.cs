@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class PrestigeManager : Singleton<PrestigeManager>
 {
-    private float prestige = 0f;
+    private float currentPrestige = 0f;
+    private float totalPrestige = 0f;
 
     private PrestigeManagerUI ui;
+
+    public float Prestige => totalPrestige;
 
     private void OnEnable()
     {
@@ -20,12 +23,20 @@ public class PrestigeManager : Singleton<PrestigeManager>
         base.Awake();
 
         ui = GetComponent<PrestigeManagerUI>();
-        ui.UpdateButton(prestige);
+        ui.UpdateButton(currentPrestige);
+        ui.AddListener(OnButtonClicked);
     }
 
     private void OnMoneyChanged(long newMoney)
     {
-        prestige = Mathf.Max(0f, Mathf.Log10(newMoney) - Mathf.Log10(10_000f));
-        ui.UpdateButton(prestige);
+        currentPrestige = Mathf.Max(0f, Mathf.Log10(newMoney) - Mathf.Log10(10_000f));
+        ui.UpdateButton(currentPrestige);
+    }
+    private void OnButtonClicked()
+    {
+        Debug.Log("Button pressed; prestige:" + currentPrestige);
+        totalPrestige += currentPrestige;
+        Skyscraper.Instance.ClearSkyscraper();
+        MoneyManager.Instance.SetMoneyToStartingMoney();
     }
 }

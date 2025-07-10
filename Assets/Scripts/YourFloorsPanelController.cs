@@ -12,10 +12,12 @@ public class YourFloorsPanelController : MonoBehaviour
     private void OnEnable()
     {
         Skyscraper.Instance.OnFloorAdded += OnFloorAdded;
+        Skyscraper.Instance.OnSkyscraperCleared += OnSkyscraperCleared;
     }
     private void OnDisable()
     {
         if(Skyscraper.HasInstance) Skyscraper.Instance.OnFloorAdded -= OnFloorAdded;  
+        if(Skyscraper.HasInstance) Skyscraper.Instance.OnSkyscraperCleared -= OnSkyscraperCleared;  
     }
     private void OnFloorAdded(Floor floor)
     {
@@ -23,5 +25,13 @@ public class YourFloorsPanelController : MonoBehaviour
         FloorInfo floorInfo = floorInfoGO.GetComponent<FloorInfo>();
         floorInfoList.Add(floorInfo);
         floorInfo.InitializeFloorInfo(floor);
+    }
+    private void OnSkyscraperCleared()
+    {
+        floorInfoList.Clear();
+        for(int i = container.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(container.transform.GetChild(i).gameObject);
+        }
     }
 }

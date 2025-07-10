@@ -13,5 +13,11 @@ public class PrestigeManagerUI : MonoBehaviour
     public void UpdateButton(float prestige)
     {
         sellSkyscraperText.text = buttonText + prestige.ToString("F2");
+        sellSkyscraperButton.interactable = prestige >= 1f;
+    }
+    public void AddListener(UnityEngine.Events.UnityAction action)
+    {
+        sellSkyscraperButton.onClick.RemoveAllListeners();
+        sellSkyscraperButton.onClick.AddListener(action);
     }
 }

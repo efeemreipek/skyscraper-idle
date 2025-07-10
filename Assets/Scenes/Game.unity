@@ -1808,7 +1808,7 @@ GameObject:
   - component: {fileID: 817305730}
   - component: {fileID: 817305729}
   m_Layer: 5
-  m_Name: Sell Skyscraper Buton
+  m_Name: Sell Skyscraper Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
