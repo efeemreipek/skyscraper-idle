@@ -16,8 +16,8 @@ public class SaveData
 [System.Serializable]
 public class SettingsData
 {
-    public float MusicVolume = 100f;
-    public float SFXVolume = 100f;
+    public float MusicVolume = 1f;
+    public float SFXVolume = 1f;
     public int ResolutionIndex;
     public int FullScreenIndex;
     public int QualityIndex;
