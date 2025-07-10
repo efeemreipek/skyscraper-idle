@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    public bool IsFirstTime = true;
     public SettingsData SettingsData;
     public float TotalPrestige;
     public float CurrentPrestige;

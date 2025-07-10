@@ -18,7 +18,14 @@ public class MoneyManager : Singleton<MoneyManager>
     }
     private void Start()
     {
-        SetMoneyToStartingMoney();
+        if(SaveManager.Instance.IsFirstTime)
+        {
+            SetMoneyToStartingMoney();
+        }
+        else
+        {
+            ChangeCurrentMoneyTo(SaveManager.Instance.LoadMoney());
+        }
     }
 
     private void ChangeCurrentMoneyTo(long amount)

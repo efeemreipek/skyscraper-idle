@@ -6,6 +6,7 @@ public class SaveManager : Singleton<SaveManager>
 {
     private SaveData saveData = new SaveData();
 
+    public bool IsFirstTime => saveData.IsFirstTime;
 
     protected override void Awake()
     {
@@ -15,18 +16,7 @@ public class SaveManager : Singleton<SaveManager>
         if(loaded == null) return;
         saveData = loaded;
     }
-    //public void LoadAll()
-    //{
-    //    SaveData loaded = SaveSystem.LoadGame();
-    //    if(loaded == null) return;
 
-    //    saveData = loaded;
-
-    //    LoadSettings(loaded.SettingsData);
-    //    LoadMoney(loaded.CurrentMoney);
-    //    LoadPrestige(loaded.TotalPrestige, loaded.CurrentPrestige);
-    //    LoadFloors(loaded.Floors);
-    //}
     public void SaveSettings()
     {
         if(!SettingsManager.HasInstance) return;
@@ -43,9 +33,9 @@ public class SaveManager : Singleton<SaveManager>
 
         saveData.CurrentMoney = MoneyManager.Instance.CurrentMoney;
     }
-    public void LoadMoney(long money)
+    public long LoadMoney()
     {
-
+        return saveData.CurrentMoney;
     }
     public void SavePrestige()
     {
@@ -92,6 +82,8 @@ public class SaveManager : Singleton<SaveManager>
             SaveMoney();
             SavePrestige();
             SaveFloors();
+
+            saveData.IsFirstTime = false;
 
             SaveSystem.SaveGame(saveData);
         }
