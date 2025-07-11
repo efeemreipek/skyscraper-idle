@@ -6,6 +6,7 @@ using UnityEngine;
 public class SaveData
 {
     public bool IsFirstTime = true;
+    public long LastPlayTime;
     public SettingsData SettingsData;
     public float TotalPrestige;
     public float CurrentPrestige;

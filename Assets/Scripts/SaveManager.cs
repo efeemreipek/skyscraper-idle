@@ -105,6 +105,7 @@ public class SaveManager : Singleton<SaveManager>
             SaveFloors();
 
             saveData.IsFirstTime = false;
+            saveData.LastPlayTime = DateTime.Now.ToBinary();
 
             SaveSystem.SaveGame(saveData);
         }

@@ -57,6 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3455c3cc38904414ebc1d45fa1090709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sellSkyscraperButton: {fileID: 0}
+  sellSkyscraperText: {fileID: 0}
 --- !u!1 &605305143598743852
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +139,7 @@ Transform:
   - {fileID: 7523596634980396078}
   - {fileID: 2652526712081123300}
   - {fileID: 5535990142710647017}
+  - {fileID: 1646724335039053685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3576796274278261677
@@ -244,3 +247,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 1000
+--- !u!1 &6186422274964493210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1646724335039053685}
+  - component: {fileID: 4613814994397596771}
+  - component: {fileID: 625554644919941713}
+  m_Layer: 0
+  m_Name: Offline Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1646724335039053685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6186422274964493210}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4666317637009738230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4613814994397596771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6186422274964493210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3598b0eb2831cfa47b985b59d44dd176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxOfflineHours: 6
+--- !u!114 &625554644919941713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6186422274964493210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed7e1ed2e75430469528626e214b691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offlineEarningsTransform: {fileID: 0}
+  offlineEarningsText: {fileID: 0}
+  onScreenPosition: {x: 0, y: 440}
+  offScreenPosition: {x: 0, y: 640}
+  moveDuration: 0.25
+  stayDuration: 3
+  moveEase: 1
