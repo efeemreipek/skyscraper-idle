@@ -83,6 +83,17 @@ public class SaveManager : Singleton<SaveManager>
         return saveData.Floors;
     }
 
+    public void DeleteSaveAndReset()
+    {
+        SaveSystem.DeleteSave();
+        ResetSaveData();
+    }
+
+    private void ResetSaveData()
+    {
+        saveData = new SaveData();
+    }
+
     private void OnApplicationQuit()
     {
         if(!Application.isPlaying) return;

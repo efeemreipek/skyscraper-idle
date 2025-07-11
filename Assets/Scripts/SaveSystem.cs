@@ -66,4 +66,12 @@ public static class SaveSystem
         string json = File.ReadAllText(savePath);
         return JsonUtility.FromJson<SaveData>(json);
     }
+    public static void DeleteSave()
+    {
+        if(File.Exists(savePath))
+        {
+            Debug.Log("Save file is deleted");
+            File.Delete(savePath);
+        }
+    }
 }

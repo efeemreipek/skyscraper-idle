@@ -51,7 +51,6 @@ public class SettingsManager : Singleton<SettingsManager>
     [SerializeField] private Toggle vSyncToggle;
     private bool isVSyncOn;
 
-
     private SettingsData settingsData;
     public SettingsData SettingsData => settingsData;
 
@@ -290,5 +289,9 @@ public class SettingsManager : Singleton<SettingsManager>
         {
             vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
         }
+    }
+    public void ResetSaveButton()
+    {
+        SaveManager.Instance.DeleteSaveAndReset();
     }
 }
