@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorInfo : MonoBehaviour
@@ -15,7 +16,6 @@ public class FloorInfo : MonoBehaviour
             Upgrade upgrade = upgrades[i];
 
             upgrade.OnUpgradeGathered += OnUpgradeGathered;
-            upgrade.InitializeUpgrade();
         }
     }
     private void OnDisable()
@@ -42,8 +42,52 @@ public class FloorInfo : MonoBehaviour
         this.floor.OnFloorGainedXP += OnFloorGainedXP;
         this.floor.OnFloorLeveledUp += OnFloorLeveledUp;
 
+        floor.FloorInfo = this;
+
         ui.InitializePanel(floor);
+
+        for(int i = 0; i < upgrades.Length; i++)
+        {
+            upgrades[i].InitializeUpgrade();
+        }
     }
+    public List<UpgradeSaveData> GetUpgradeSaveData()
+    {
+        List<UpgradeSaveData> upgradeData = new List<UpgradeSaveData>();
+
+        for(int i = 0; i < upgrades.Length; i++)
+        {
+            upgradeData.Add(upgrades[i].GetSaveData());
+        }
+
+        return upgradeData;
+    }
+
+    public void LoadUpgrades(List<UpgradeSaveData> upgradeData)
+    {
+        for(int i = 0; i < upgradeData.Count && i < upgrades.Length; i++)
+        {
+            // Find the matching upgrade by type
+            for(int j = 0; j < upgrades.Length; j++)
+            {
+                if(upgrades[j].UpgradeType == upgradeData[i].UpgradeType)
+                {
+                    upgrades[j].LoadFromSave(upgradeData[i]);
+                    break;
+                }
+            }
+        }
+
+        // Initialize any upgrades that weren't loaded from save
+        for(int i = 0; i < upgrades.Length; i++)
+        {
+            if(!upgrades[i].IsInitialized)
+            {
+                upgrades[i].InitializeUpgrade();
+            }
+        }
+    }
+
 
     private void OnUpgradeGathered(Upgrade upgrade, UpgradeType upgradeType)
     {

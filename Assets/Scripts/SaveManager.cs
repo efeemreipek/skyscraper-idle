@@ -7,6 +7,7 @@ public class SaveManager : Singleton<SaveManager>
     private SaveData saveData = new SaveData();
 
     public bool IsFirstTime => saveData.IsFirstTime;
+    public SaveData SaveData => saveData;
 
     protected override void Awake()
     {
@@ -56,7 +57,9 @@ public class SaveManager : Singleton<SaveManager>
 
         foreach(Floor floor in Skyscraper.Instance.FloorList)
         {
-            saveData.Floors.Add(new FloorSaveData()
+            FloorInfo floorInfo = floor.FloorInfo;
+
+            FloorSaveData floorSaveData = new FloorSaveData()
             {
                 FloorID = floor.Data.Name,
                 CurrentLevel = floor.CurrentLevel,
@@ -65,7 +68,14 @@ public class SaveManager : Singleton<SaveManager>
                 ClickXPBoost = floor.ClickXPBoost,
                 PassiveXPBoost = floor.PassiveXPBoost,
                 MoneyBoost = floor.MoneyBoost
-            });
+            };
+
+            if(floorInfo != null)
+            {
+                floorSaveData.Upgrades = floorInfo.GetUpgradeSaveData();
+            }
+
+            saveData.Floors.Add(floorSaveData);
         }
     }
     public List<FloorSaveData> LoadFloors()

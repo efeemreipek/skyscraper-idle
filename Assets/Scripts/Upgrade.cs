@@ -21,6 +21,7 @@ public class Upgrade : MonoBehaviour
     private bool canUpgrade = true;
     private long upgradeCost;
     private UpgradeUI ui;
+    private bool isInitialized;
 
     public event Action<Upgrade, UpgradeType> OnUpgradeGathered;
 
@@ -29,13 +30,28 @@ public class Upgrade : MonoBehaviour
 
     public bool CanUpgrade => canUpgrade;
     public int CurrentLevel => currentLevel;
+    public UpgradeType UpgradeType => upgradeType;
+    public bool IsInitialized => isInitialized;
 
     public void InitializeUpgrade()
     {
+        if(isInitialized) return;
+
         ui = GetComponent<UpgradeUI>();
 
-        upgradeCost = baseCost;
+        if(upgradeCost == 0)
+        {
+            upgradeCost = baseCost;
+        }
+
         ui.UpdateCost(upgradeCost);
+
+        if(!canUpgrade)
+        {
+            ui.DisableInteraction();
+        }
+
+        isInitialized = true;
     }
     public void UpgradeButton()
     {
@@ -59,5 +75,41 @@ public class Upgrade : MonoBehaviour
     {
         double cost = baseCost * Mathf.Pow(costMultiplier, currentLevel);
         return (long)Math.Ceiling(cost);
+    }
+    public UpgradeSaveData GetSaveData()
+    {
+        return new UpgradeSaveData()
+        {
+            UpgradeType = upgradeType,
+            CurrentLevel = currentLevel,
+            CanUpgrade = canUpgrade
+        };
+    }
+    [ContextMenu("Load")]
+    public void Load()
+    {
+        UpgradeSaveData upgradeSaveData = SaveManager.Instance.SaveData.Floors[0].Upgrades[1];
+        LoadFromSave(upgradeSaveData);
+    }
+    public void LoadFromSave(UpgradeSaveData saveData)
+    {
+        currentLevel = saveData.CurrentLevel;
+        canUpgrade = saveData.CanUpgrade;
+
+        upgradeCost = GetUpgradeCost();
+
+        if(ui == null)
+        {
+            ui = GetComponent<UpgradeUI>();
+        }
+
+        ui.UpdateCost(upgradeCost);
+
+        if(!canUpgrade)
+        {
+            ui.DisableInteraction();
+        }
+
+        isInitialized = true;
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Floor : MonoBehaviour
@@ -30,6 +32,7 @@ public class Floor : MonoBehaviour
     public float ClickXPBoost => clickXPBoost;
     public float PassiveXPBoost => passiveXPBoost;
     public float MoneyBoost => moneyBoost;
+    public FloorInfo FloorInfo { get; set; }
 
     private void OnEnable()
     {
@@ -129,8 +132,30 @@ public class Floor : MonoBehaviour
         passiveXPBoost = data.PassiveXPBoost;
         moneyBoost = data.MoneyBoost;
 
+        if(data.Upgrades != null && data.Upgrades.Count > 0)
+        {
+            if(FloorInfo != null)
+            {
+                FloorInfo.LoadUpgrades(data.Upgrades);
+            }
+            else
+            {
+                StartCoroutine(LoadUpgradesWhenReady(data.Upgrades));
+            }
+        }
+
         OnFloorLeveledUp?.Invoke(currentLevel, CurrentMoneyPerSecond);
         OnFloorGainedXP?.Invoke(CurrentLevelProgress);
+    }
+    private IEnumerator LoadUpgradesWhenReady(List<UpgradeSaveData> upgradeData)
+    {
+        // Wait until FloorInfo is set
+        while(FloorInfo == null)
+        {
+            yield return null;
+        }
+
+        FloorInfo.LoadUpgrades(upgradeData);
     }
 
     private int GetXPOnClick() => Mathf.CeilToInt(data.BaseXPOnClick * clickXPBoost);

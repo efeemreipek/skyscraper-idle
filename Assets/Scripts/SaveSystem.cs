@@ -34,6 +34,15 @@ public class FloorSaveData
     public float ClickXPBoost;
     public float PassiveXPBoost;
     public float MoneyBoost;
+    public List<UpgradeSaveData> Upgrades = new List<UpgradeSaveData>();
+}
+
+[System.Serializable]
+public class UpgradeSaveData
+{
+    public UpgradeType UpgradeType;
+    public int CurrentLevel;
+    public bool CanUpgrade;
 }
 
 public static class SaveSystem
