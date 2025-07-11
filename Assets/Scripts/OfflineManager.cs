@@ -28,7 +28,6 @@ public class OfflineManager : Singleton<OfflineManager>
 
         if(SaveManager.Instance.IsFirstTime)
         {
-            Debug.Log("First time player - no offline earnings to calculate");
             yield break;
         }
 
@@ -37,7 +36,6 @@ public class OfflineManager : Singleton<OfflineManager>
         // Handle case where LastPlayTime hasn't been set yet
         if(binaryTime == 0)
         {
-            Debug.Log("No previous play time recorded");
             yield break;
         }
 
@@ -55,17 +53,12 @@ public class OfflineManager : Singleton<OfflineManager>
                 ApplyOfflineEarnings();
             }
         }
-        else
-        {
-            Debug.Log("Player was away for less than a second - no offline earnings");
-        }
     }
 
     private void CalculateOfflineEarnings(TimeSpan timeAway)
     {
         if(Skyscraper.Instance?.FloorList == null)
         {
-            Debug.LogWarning("Skyscraper or FloorList is null");
             return;
         }
 
@@ -82,21 +75,15 @@ public class OfflineManager : Singleton<OfflineManager>
         }
 
         totalOfflineHours = Math.Min(timeAway.TotalHours, maxOfflineHours);
-        Debug.Log($"Total offline earnings: {totalOfflineEarnings} over {totalOfflineHours:F2} hours");
     }
     private void ApplyOfflineEarnings()
     {
         if(MoneyManager.HasInstance)
         {
             MoneyManager.Instance.AddMoney(totalOfflineEarnings);
-            Debug.Log($"Applied {totalOfflineEarnings} offline earnings to player");
 
             // You might want to show a popup or notification here
             ui.ShowEarningsPanel(totalOfflineEarnings, totalOfflineHours);
-        }
-        else
-        {
-            Debug.LogWarning("MoneyManager not available to apply offline earnings");
         }
     }
 }
