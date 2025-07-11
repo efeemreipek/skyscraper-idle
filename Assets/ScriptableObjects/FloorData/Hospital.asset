@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9a70458a26ce2947a829bc1881e365c, type: 3}
-  m_Name: Bakery
+  m_Name: Hospital
   m_EditorClassIdentifier: 
-  Name: Bakery
-  BuyCost: 1000
+  Name: Hospital
+  BuyCost: 10000000
   BaseXPCapAmount: 100
-  BaseXPOnClick: 20
+  BaseXPOnClick: 160
   BaseXPOnTime: 2
-  BaseMoneyGenerationPerSecond: 12
+  BaseMoneyGenerationPerSecond: 250
   LevelXPMultiplier: 1.25
   LevelMoneyMultiplier: 1.3

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: FloorDataList
   m_EditorClassIdentifier: 
   List:
-  - {fileID: 11400000, guid: 88abb59374d594a44865b0f3daaaa18c, type: 2}
   - {fileID: 11400000, guid: 12940a2fb72094f4485689935fb1389c, type: 2}
-  - {fileID: 11400000, guid: 34dc20c333a27464dbb1d9a548d10ade, type: 2}
+  - {fileID: 11400000, guid: e3480f98776d1454c9bb214e693ac2b3, type: 2}
+  - {fileID: 11400000, guid: 473944ce644352241a41eb7566199b8a, type: 2}
+  - {fileID: 11400000, guid: eebe7b5f1d223a84a8611a7bef0e8d96, type: 2}
+  - {fileID: 11400000, guid: d9d4003e528fc234493cfb466bd17ef4, type: 2}
+  - {fileID: 11400000, guid: 07f449645f0086c4189abc27064696b8, type: 2}
