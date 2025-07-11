@@ -53,13 +53,11 @@ public static class SaveSystem
     {
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
-        Debug.Log("Game saved to: " + savePath);
     }
     public static SaveData LoadGame()
     {
         if(!File.Exists(savePath))
         {
-            Debug.Log("No save file found");
             return null;
         }
 
@@ -70,7 +68,6 @@ public static class SaveSystem
     {
         if(File.Exists(savePath))
         {
-            Debug.Log("Save file is deleted");
             File.Delete(savePath);
         }
     }
