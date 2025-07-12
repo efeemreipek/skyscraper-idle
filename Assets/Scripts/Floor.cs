@@ -18,6 +18,10 @@ public class Floor : MonoBehaviour
     [SerializeField] private float passiveXPBoost = 1f;
     [SerializeField] private float moneyBoost = 1f;
 
+    [Header("Visual")]
+    [SerializeField] private MeshRenderer floorMeshRenderer;
+    [SerializeField] private MeshRenderer symbolMeshRenderer;
+
     private FloorUI ui;
 
     public event Action<int, long> OnFloorLeveledUp;
@@ -87,6 +91,9 @@ public class Floor : MonoBehaviour
         currentLevel = 1;
         currentXP = 0;
         ResetUpgrades();
+
+        floorMeshRenderer.material = data.NameSignMaterial;
+        symbolMeshRenderer.material = data.SymbolMaterial;
 
         ui.SetNameText(data.Name);
     }

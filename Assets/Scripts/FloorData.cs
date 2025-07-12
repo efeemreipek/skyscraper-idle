@@ -16,4 +16,8 @@ public class FloorData : ScriptableObject
     [Header("Growth Multipliers")]
     public float LevelXPMultiplier = 1.25f;
     public float LevelMoneyMultiplier = 1.3f;
+
+    [Header("Visual")]
+    public Material NameSignMaterial;
+    public Material SymbolMaterial;
 }
