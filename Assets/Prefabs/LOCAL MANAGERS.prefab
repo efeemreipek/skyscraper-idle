@@ -311,4 +311,4 @@ MonoBehaviour:
   offScreenPosition: {x: 0, y: 640}
   moveDuration: 0.25
   stayDuration: 3
-  moveEase: 1
+  moveEase: 14
