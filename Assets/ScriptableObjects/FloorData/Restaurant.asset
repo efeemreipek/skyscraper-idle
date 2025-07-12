@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Restaurant
   BuyCost: 100000
-  BaseXPCapAmount: 100
+  BaseXPCapAmount: 400
   BaseXPOnClick: 40
   BaseXPOnTime: 2
   BaseMoneyGenerationPerSecond: 36
   LevelXPMultiplier: 1.25
   LevelMoneyMultiplier: 1.3
+  NameSignMaterial: {fileID: 2100000, guid: 839f1f80c9e10984b89a1b21144b63dd, type: 2}
+  SymbolMaterial: {fileID: 2100000, guid: 96bb4139288290c448f8a17df0badf93, type: 2}

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Hospital
   BuyCost: 10000000
-  BaseXPCapAmount: 100
+  BaseXPCapAmount: 1600
   BaseXPOnClick: 160
   BaseXPOnTime: 2
   BaseMoneyGenerationPerSecond: 250
   LevelXPMultiplier: 1.25
   LevelMoneyMultiplier: 1.3
+  NameSignMaterial: {fileID: 2100000, guid: bf2921f8cf82d384cb1ea13d19d9f18e, type: 2}
+  SymbolMaterial: {fileID: 2100000, guid: a4169fd4e78ff484d956b3515066e872, type: 2}
