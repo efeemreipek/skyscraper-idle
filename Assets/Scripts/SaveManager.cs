@@ -96,6 +96,11 @@ public class SaveManager : Singleton<SaveManager>
 
     private void OnApplicationQuit()
     {
+        SaveGame();
+    }
+
+    public void SaveGame()
+    {
         if(!Application.isPlaying) return;
 
         try
