@@ -27,10 +27,6 @@ public class Skyscraper : Singleton<Skyscraper>
             {
                 AddNewFloor(floorData, floorSaveData);
             }
-            else
-            {
-                Debug.Log("Missing FloorData for ID:" + floorSaveData.FloorID);
-            }
         }
     }
 

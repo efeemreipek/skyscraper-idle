@@ -11,14 +11,16 @@ public class Clicker : MonoBehaviour
     [SerializeField] private float lifetime = 0.1f;
 
     private Queue<GameObject> clickEffectPool = new Queue<GameObject>();
-
     private Camera cam;
+    private WaitForSeconds lifetimeSeconds;
 
     private void Awake()
     {
         cam = Camera.main;
 
         InitializePool();
+
+        lifetimeSeconds = new WaitForSeconds(lifetime);
     }
     private void OnEnable()
     {
@@ -58,7 +60,7 @@ public class Clicker : MonoBehaviour
     }
     private IEnumerator ReturnAfterPlaying(GameObject go)
     {
-        yield return new WaitForSeconds(lifetime);
+        yield return lifetimeSeconds;
         go.SetActive(false);
         clickEffectPool.Enqueue(go);
     }

@@ -40,7 +40,6 @@ public class PrestigeManager : Singleton<PrestigeManager>
     }
     private void OnButtonClicked()
     {
-        Debug.Log("Button pressed; prestige:" + currentPrestige);
         totalPrestige += currentPrestige;
         Skyscraper.Instance.ClearSkyscraper();
         MoneyManager.Instance.SetMoneyToStartingMoney();

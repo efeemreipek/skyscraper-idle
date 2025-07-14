@@ -116,7 +116,7 @@ public class SaveManager : Singleton<SaveManager>
         }
         catch(Exception e)
         {
-            Debug.LogWarning("Save on quit failed: " + e.Message);
+            
         }
     }
 }

@@ -13,6 +13,13 @@ public class OfflineManagerUI : MonoBehaviour
     [SerializeField] private float stayDuration = 1f;
     [SerializeField] private Ease moveEase = Ease.Linear;
 
+    private WaitForSeconds moveStaySeconds;
+
+    private void Start()
+    {
+        moveStaySeconds = new WaitForSeconds(moveDuration + stayDuration);
+    }
+
     public void ShowEarningsPanel(long totalOfflineEarnings, double totalOfflineHours)
     {
         StartCoroutine(MoveEarningsPanel(totalOfflineEarnings, totalOfflineHours));
@@ -22,7 +29,7 @@ public class OfflineManagerUI : MonoBehaviour
     {
         offlineEarningsText.text = $"You gained ${totalOfflineEarnings} while offline for {totalOfflineHours:F2} hours";
         offlineEarningsTransform.DOAnchorPos(onScreenPosition, moveDuration).SetEase(moveEase);
-        yield return new WaitForSeconds(moveDuration + stayDuration);
+        yield return moveStaySeconds;
         offlineEarningsTransform.DOAnchorPos(offScreenPosition, moveDuration).SetEase(moveEase);
     }
 }

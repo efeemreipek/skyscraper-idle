@@ -5,9 +5,9 @@ public class CheatCodes : MonoBehaviour
 {
     [SerializeField] private int amount = 1000;
 
+#if UNITY_EDITOR
     private void Update()
     {
-#if UNITY_EDITOR
 
         if(Keyboard.current.digit1Key.wasPressedThisFrame)
         {
@@ -18,6 +18,6 @@ public class CheatCodes : MonoBehaviour
             MoneyManager.Instance.RemoveMoney(amount);
         }
 
-#endif // #if UNITY_EDITOR
     }
+#endif // #if UNITY_EDITOR
 }
